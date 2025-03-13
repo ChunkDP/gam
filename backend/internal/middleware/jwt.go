@@ -15,15 +15,19 @@ import (
 type Claims struct {
 	UserID    uint   `json:"user_id"`
 	RoleID    uint   `json:"role_id"`
+	UserType  string `json:"user_type"`
+	Username  string `json:"username"`
 	TokenType string `json:"token_type"` // access 或 refresh
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(userID uint, RoleID uint, config config.JWTConfig) (string, string, error) {
+func GenerateToken(userID uint, RoleID uint, userType string, username string, config config.JWTConfig) (string, string, error) {
 	// 访问令牌 - 短期(如24小时)
 	accessClaims := Claims{
 		UserID:    userID,
 		RoleID:    RoleID,
+		UserType:  userType,
+		Username:  username,
 		TokenType: "access",
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(config.ExpireTime) * time.Hour)),
@@ -40,6 +44,8 @@ func GenerateToken(userID uint, RoleID uint, config config.JWTConfig) (string, s
 	refreshClaims := Claims{
 		UserID:    userID,
 		RoleID:    RoleID,
+		UserType:  userType,
+		Username:  username,
 		TokenType: "refresh",
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * time.Duration(config.ExpireTime) * time.Hour)),
@@ -93,6 +99,8 @@ func JWTAuth(cfg config.JWTConfig) gin.HandlerFunc {
 			// 将用户ID存储在上下文中
 			c.Set("user_id", claims.UserID)
 			c.Set("role_id", claims.RoleID)
+			c.Set("user_type", claims.UserType)
+			c.Set("username", claims.Username)
 			c.Next()
 		} else {
 			response.Error(c, http.StatusUnauthorized, "Invalid token claims")

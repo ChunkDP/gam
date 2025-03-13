@@ -291,7 +291,12 @@ INSERT INTO `menus` VALUES (60, 5, '日志管理', 'LogManage', '/system/logs', 
 INSERT INTO `menus` VALUES (61, 60, '查看日志', 'LogView', '', '', '', 1, 0, 'button', 'system:log:view', 1, NOW(), NOW(), NULL, '', 'GET', '/gam/system/logs');
 INSERT INTO `menus` VALUES (62, 60, '删除日志', 'LogDelete', '', '', '', 2, 0, 'button', 'system:log:delete', 1, NOW(), NOW(), NULL, '', 'DELETE', '/gam/system/logs');
 
+INSERT INTO `menus` VALUES (70, 5, '系统监控', 'SystemMonitor', '/system/monitor', 'system/Monitor', 'Monitor', 7, 0, 'menu', 'system:monitor:list', 1, NOW(), NOW(), NULL, 'System', NULL, NULL);
 
+-- 添加系统监控相关按钮权限
+INSERT INTO `menus` VALUES (71, 70, '查看监控', 'MonitorView', '', '', '', 1, 0, 'button', 'system:monitor:view', 1, NOW(), NOW(), NULL, '', 'GET', '/api/system/monitor/latest');
+INSERT INTO `menus` VALUES (72, 70, '监控历史', 'MonitorHistory', '', '', '', 2, 0, 'button', 'system:monitor:history', 1, NOW(), NOW(), NULL, '', 'GET', '/api/system/monitor/list');
+INSERT INTO `menus` VALUES (73, 70, '手动采集', 'MonitorCollect', '', '', '', 3, 0, 'button', 'system:monitor:collect', 1, NOW(), NOW(), NULL, '', 'POST', '/api/system/monitor/collect');
 
 -- ----------------------------
 -- Table structure for `migration_records`

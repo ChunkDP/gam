@@ -23,11 +23,5 @@ func RegisterSystemRoutes(r *gin.RouterGroup) {
 		system.GET("/monitor", h.GetSystemMonitor)
 		system.GET("/monitor/history", h.GetMonitorHistory)
 
-		// 系统通知
-		system.POST("/notices", h.CreateSystemNotice)
-		system.GET("/notices", h.GetSystemNotices)
-		system.PUT("/notices/:id", h.UpdateSystemNotice)
-		system.DELETE("/notices/:id", h.DeleteSystemNotice)
-		system.GET("/notices/active", h.GetActiveNotices)
 	}
 }

@@ -8,13 +8,14 @@ import (
 	"normaladmin/backend/internal/handlers"
 	"normaladmin/backend/internal/middleware"
 	"normaladmin/backend/pkg/auth"
+	"normaladmin/backend/pkg/rabbitmq"
 	"normaladmin/backend/pkg/sysconfig"
 	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine, conf *config.Config) {
+func SetupRoutes(r *gin.Engine, conf *config.Config, mq *rabbitmq.RabbitMQ) {
 	r.Use(middleware.CORS(config.Global.CORS))
 	r.Use(middleware.AddHeaders)
 
@@ -50,6 +51,7 @@ func SetupRoutes(r *gin.Engine, conf *config.Config) {
 	gam.POST("/login", handlers.Login(conf.JWT))
 
 	gam.Use(middleware.JWTAuth(conf.JWT))
+	gam.Use(middleware.RequestLoggerMiddleware(db))
 	{
 		// 认证相关路由
 		gam.GET("/authmenus", handlers.GetAuthMenus) // 获取用户的菜单和权限信息
@@ -64,7 +66,8 @@ func SetupRoutes(r *gin.Engine, conf *config.Config) {
 		v1.RegisterConfigRoutes(gam)
 		v1.RegisterUploadRoutes(gam)
 		v1.RegisterSystemRoutes(gam)
-
+		v1.RegisterSystemMonitorRoutes(gam)
+		v1.RegisterNotificationRoutes(gam, mq)
 	}
 
 	//前台路由才涉及api/v1的版本控制

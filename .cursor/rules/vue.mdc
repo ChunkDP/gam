@@ -1,0 +1,94 @@
+---
+description: 适合vue的编码规范
+globs: 
+---
+
+## Vue Rules
+
+### 项目结构
+- 使用 Vite 创建项目
+- 组件放在 `components` 目录
+- 页面放在 `views` 或 `pages` 目录
+- API 调用放在 `services` 或 `api` 目录
+- 全局状态管理放在 `store` 目录
+- 路由配置放在 `router` 目录
+- 工具函数放在 `utils` 目录
+- 静态资源放在 `assets` 目录
+
+### 命名规范
+- 组件名使用 PascalCase（首字母大写的驼峰命名法）
+- 组件文件名与组件名一致
+- 基础组件名应当以特定前缀开头，如 `Base`, `App`, `V`
+- 单例组件名应当以 `The` 前缀开头
+- Props 名使用 camelCase（首字母小写的驼峰命名法）
+- 事件名使用 kebab-case（短横线分隔命名法）
+
+### 组件设计
+- 组件应当遵循单一职责原则
+- 组件应当有明确定义的 props 和 emits
+- 复杂组件应当分解为更小的组件
+- 使用 slots 增强组件的灵活性
+- 避免过深的组件嵌套
+
+### Vue3 Composition API
+- 使用 `<script setup>` 语法
+- 使用 `ref`, `reactive`, `computed`, `watch` 等响应式 API
+- 使用 `provide/inject` 进行深层组件通信
+- 使用 `defineProps` 和 `defineEmits` 定义 props 和事件
+- 使用 `defineExpose` 暴露组件方法和属性
+
+### 状态管理
+- 使用 Pinia 进行状态管理
+- 状态应当按模块组织
+- 避免在组件中直接修改全局状态
+- 使用 actions 处理异步操作
+- 使用 getters 计算派生状态
+
+### 路由管理
+- 路由配置应当清晰组织
+- 使用路由守卫控制页面访问权限
+- 使用懒加载优化性能
+- 路由参数应当有类型验证
+- 使用命名路由而非硬编码 URL
+
+### 样式规范
+- 使用 SCSS 预处理器
+- 组件样式应当使用 scoped 或 CSS Modules
+- 全局样式放在单独的文件中
+- 使用变量管理颜色、字体等
+- 遵循 BEM 命名规范
+
+### API 调用
+- 使用 Axios 进行网络请求
+- API 调用应当集中管理
+- 使用拦截器统一处理请求和响应
+- 处理加载状态和错误状态
+- 实现请求取消和超时控制
+
+### 性能优化
+- 使用 `v-memo` 缓存不经常变化的内容
+- 使用 `v-once` 渲染只需一次的内容
+- 大列表使用虚拟滚动
+- 组件使用懒加载
+- 避免不必要的计算和渲染
+
+### 测试规范
+- 使用 Vitest 或 Jest 进行单元测试
+- 使用 Vue Test Utils 测试组件
+- 编写组件快照测试
+- 测试关键用户交互
+- 模拟 API 请求进行测试
+
+### 项目特定规范
+- 后台管理的前端项目中，编写api文件需要参考frontend/src/services/upload.js写法
+- 调用的是apiService.js，返回的是res.data.data
+- 前端api参考后台管理前端的写法
+- 如果涉及前端项目的小程序，在目录app目录中，采用uniapp+uni-ui+vue3语法
+- 编写前端页面时生成对应的菜单sql @backend/database/base_admin.sql
+
+## Element Plus 规范
+- 统一使用 Element Plus 组件库
+- 定制主题颜色保持一致
+- 表单验证规则统一管理
+- 弹窗和确认框使用统一的样式和交互
+- 表格和分页组件使用统一的配置

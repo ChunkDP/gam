@@ -31,7 +31,7 @@
 ##代码编写
 技术选型:根据项目需求选择合适的技术栈(例如后端采用golang+gin+gorm+mysql，前端采用vue3+elementplus+uniapp,其中uniapp用于编写前端小程序。)
 具体的一些编写规范：
--后端handlers文件夹中的handler进行编写时，请参考其他的文件，提供完成的符合swagger的注释，返回时用pkg/response/response.go提供的函数，例如response.Success(c, data),response.Error(c, http.StatusBadRequest, "无效的用户ID")。
+-后端handlers文件夹中的handler进行编写时，请参考其他的文件，提供完成的符合swagger的注释，返回时用pkg/utils/response/response.go提供的函数，例如response.Success(c, data),response.Error(c, http.StatusBadRequest, "无效的用户ID")。
 -后端services文件夹中的service进行编写时，请参考其他的文件，编写接口，使用gorm。
 -后端路由注册统一在backend/api/routes/routes.go中进行注册。
 -后端项目的名称为normaladmin/backend

@@ -8,13 +8,14 @@ import (
 	"normaladmin/backend/internal/services"
 	"normaladmin/backend/pkg/cache"
 	"normaladmin/backend/pkg/logger"
-	"normaladmin/backend/pkg/mq"
+	"normaladmin/backend/pkg/rabbitmq"
 	"normaladmin/backend/pkg/utils/encrypt"
 	"os"
 	"path/filepath"
 
 	"normaladmin/backend/api/routes"
-	_ "normaladmin/backend/cmd/app/docs"        // swagger文档目录
+	_ "normaladmin/backend/cmd/app/docs" // swagger文档目录
+	"normaladmin/backend/cmd/crons"
 	_ "normaladmin/backend/database/migrations" // 导入迁移
 
 	"github.com/gin-gonic/gin"
@@ -89,15 +90,18 @@ func main() {
 	}
 	defer cache.Close() // 程序结束时关闭Redis连接
 	// 初始化 RabbitMQ
-	mq, err := mq.NewRabbitMQ("amqp://guest:guest@localhost:5672/")
+	mq, err := rabbitmq.NewRabbitMQ("amqp://guest:guest@localhost:5672/")
 	if err != nil {
 		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
 	}
 	defer mq.Close()
 
-	// 初始化通知服务
-	noticeService := services.NewNoticeService(mq)
-	noticeService.StartNoticeConsumer()
+	// 初始化系统监控服务
+	systemMonitorService := services.NewSystemMonitorService(database.GetDB())
+
+	// 启动系统监控定时任务
+	monitorCron := crons.SetupSystemMonitorCron(systemMonitorService)
+	defer monitorCron.Stop()
 
 	gin.SetMode(config.Global.Server.Mode)
 
@@ -110,7 +114,7 @@ func main() {
 	}
 
 	// 注册路由
-	routes.SetupRoutes(r, config.Global)
+	routes.SetupRoutes(r, config.Global, mq)
 
 	// 启动服务器
 	addr := fmt.Sprintf(":%d", config.Global.Server.Port)

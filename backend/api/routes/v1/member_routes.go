@@ -14,7 +14,7 @@ func RegisterMemberRoutes(r *gin.RouterGroup) {
 	db := database.GetDB()
 	base := services.NewBaseCRUDService[models.Member](db)
 	cache := services.NewCacheBaseService(base, "member")
-	log := services.NewLogBaseService(cache, "member")
+	log := services.NewLogBaseService(cache, "member", db)
 	memberService := services.NewMemberService(db, log)
 	h := handlers.NewMemberHandler(memberService)
 

@@ -2,8 +2,6 @@ package models
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 // SystemLog 系统日志
@@ -36,17 +34,9 @@ type SystemMonitor struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
-// SystemNotice 系统通知
-type SystemNotice struct {
-	ID        uint           `json:"id" gorm:"primarykey"`
-	Title     string         `json:"title"`                    // 通知标题
-	Content   string         `json:"content" gorm:"type:text"` // 通知内容
-	Type      string         `json:"type"`                     // 通知类型：system/maintenance/update
-	Level     string         `json:"level"`                    // 通知级别：info/warning/error
-	Status    int            `json:"status"`                   // 状态：0-未发布 1-已发布
-	StartTime *time.Time     `json:"start_time"`               // 生效时间
-	EndTime   *time.Time     `json:"end_time"`                 // 结束时间
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
+// SystemMonitorQuery 系统监控查询参数
+type SystemMonitorQuery struct {
+	StartTime string `form:"start_time"` // 开始时间
+	EndTime   string `form:"end_time"`   // 结束时间
+	Limit     int    `form:"limit"`      // 限制条数
 }

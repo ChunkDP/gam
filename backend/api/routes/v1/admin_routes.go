@@ -14,7 +14,7 @@ func RegisterAdminRoutes(r *gin.RouterGroup) {
 	db := database.GetDB()
 	base := services.NewBaseCRUDService[models.Admin](db)
 	cache := services.NewCacheBaseService(base, "admin")
-	log := services.NewLogBaseService(cache, "admin")
+	log := services.NewLogBaseService(cache, "admin", db)
 	adminService := services.NewAdminService(db, log)
 
 	h := handlers.NewAdminHandler(adminService)

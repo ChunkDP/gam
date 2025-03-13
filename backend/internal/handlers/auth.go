@@ -71,7 +71,7 @@ func Login(cfg config.JWTConfig) gin.HandlerFunc {
 		}
 
 		// 生成token
-		accessToken, refreshToken, err := middleware.GenerateToken(user.ID, user.RoleID, cfg)
+		accessToken, refreshToken, err := middleware.GenerateToken(user.ID, user.RoleID, "admin", user.Username, cfg)
 		if err != nil {
 			response.Error(c, http.StatusInternalServerError, "Failed to generate token")
 			return
@@ -125,7 +125,7 @@ func RefreshToken(cfg config.JWTConfig) gin.HandlerFunc {
 		}
 
 		// 生成新的访问令牌
-		accessToken, refreshToken, err := middleware.GenerateToken(claims.UserID, claims.RoleID, cfg)
+		accessToken, refreshToken, err := middleware.GenerateToken(claims.UserID, claims.RoleID, claims.UserType, claims.Username, cfg)
 		if err != nil {
 			response.Error(c, http.StatusInternalServerError, "Failed to generate token")
 			return
@@ -171,7 +171,7 @@ func MemberLogin(cfg config.JWTConfig) gin.HandlerFunc {
 		}
 
 		// 生成token
-		accessToken, refreshToken, err := middleware.GenerateToken(member.ID, member.LevelID, cfg)
+		accessToken, refreshToken, err := middleware.GenerateToken(member.ID, member.LevelID, "member", member.Username, cfg)
 		if err != nil {
 			response.Error(c, http.StatusInternalServerError, "生成token失败")
 			return

@@ -2,8 +2,8 @@
  项目文档
 
 ## 项目简介
-GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。
-
+GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。这个项目不仅能帮助你快速搭建一个后台管理系统，为小程序、app提供api支撑，还能帮助你快速了解多个技术栈，学习相关技术原理。为后续程序开发打下基础。  
+**本项目涉及多个软件环境，如mysql、redis、rabbitmq，请在调试前安装好相关软件。**
 ## 技术栈
 ### 后端
 - 核心框架：Golang + Gin
@@ -12,6 +12,7 @@ GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，�
 - 认证：JWT + Casbin
 - API文档：Swagger
 - 日志：自定义Logger
+- 消息队列：RabbitMQ
 
 ### 前端
 - 核心框架：Vue3 + TypeScript
@@ -34,7 +35,7 @@ GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，�
 │ └── pkg/ # 公共包  
 ├── frontend/ # 管理后台前端  
 └── app/ # 小程序端  
-
+└── scripts/ # 脚本文件，用于启动redis 
 
 ## 设计模式与最佳实践
 

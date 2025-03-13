@@ -7,10 +7,12 @@
         <div class="logo">
           <el-image :src="LogoJpg" />
           <span>Go-admin-manage</span>
-          
+         
           
         </div>
         <div class="user-info">
+           <!-- 添加通知中心组件 -->
+           <NotificationCenter />
           <el-dropdown trigger="click" popper-class="popclass">
             <span
               class="cursor-pointer flex justify-center items-center text-black dark:text-gray-100 el-dropdown-link">
@@ -141,13 +143,14 @@ import { useRouter } from 'vue-router';
 import Tabs from '../components/Tabs.vue';
 import AvatarJpg from '@/assets/avatar.png';
 import LogoJpg from '@/assets/logo.png';
-
+import NotificationCenter from '../components/NotificationCenter.vue'
 import { useUserPermissionsStore } from '../stores/userPermissions';
 
 
 export default defineComponent({
   components: {
-    Tabs
+    Tabs,
+    NotificationCenter
   },
   setup() {
 

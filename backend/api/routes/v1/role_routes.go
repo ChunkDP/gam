@@ -14,7 +14,7 @@ func RegisterRoleRoutes(r *gin.RouterGroup) {
 	db := database.GetDB()
 	base := services.NewBaseCRUDService[models.Role](db)
 	cache := services.NewCacheBaseService(base, "role")
-	log := services.NewLogBaseService(cache, "role")
+	log := services.NewLogBaseService(cache, "role", db)
 	roleService := services.NewRoleService(db, log)
 	h := handlers.NewRoleHandler(roleService)
 	// 角色管理
