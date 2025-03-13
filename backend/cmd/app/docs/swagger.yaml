@@ -1,0 +1,2301 @@
+basePath: /
+definitions:
+  internal_handlers.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  internal_handlers.MemberLoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  internal_handlers.MemberRegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - phone
+    - username
+    type: object
+  internal_handlers.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  normaladmin_backend_internal_models.Admin:
+    properties:
+      avatar:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      last_login_time:
+        description: 改为指针类型，允许为 null
+        type: string
+      phone:
+        type: string
+      real_name:
+        type: string
+      role:
+        $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+      role_id:
+        type: integer
+      status:
+        description: 1-启用 0-禁用
+        type: integer
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  normaladmin_backend_internal_models.Member:
+    properties:
+      avatar:
+        type: string
+      birthday:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      gender:
+        description: 0-未知 1-男 2-女
+        type: integer
+      id:
+        type: integer
+      last_login_ip:
+        type: string
+      last_login_time:
+        type: string
+      level_id:
+        type: integer
+      mobile:
+        type: string
+      nickname:
+        type: string
+      points:
+        type: integer
+      status:
+        description: 0-禁用 1-启用 2-黑名单
+        type: integer
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+  normaladmin_backend_internal_models.Menu:
+    properties:
+      api_method:
+        description: 新增字段
+        type: string
+      api_path:
+        description: 新增字段
+        type: string
+      children:
+        items:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+        type: array
+      component:
+        type: string
+      icon:
+        type: string
+      id:
+        type: integer
+      is_hidden:
+        type: boolean
+      name:
+        type: string
+      parent_id:
+        type: integer
+      parent_name:
+        type: string
+      path:
+        type: string
+      permission:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      title:
+        type: string
+      type:
+        description: menu or button
+        type: string
+    type: object
+  normaladmin_backend_internal_models.Role:
+    properties:
+      code:
+        type: string
+      data_scope:
+        description: 数据权限范围
+        type: integer
+      description:
+        type: string
+      id:
+        description: 将 ID 字段的 JSON 标签设置为 "id"
+        type: integer
+      is_preset:
+        description: 是否为系统预设角色
+        type: boolean
+      name:
+        type: string
+      remark:
+        description: 备注
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态
+        type: integer
+    type: object
+  normaladmin_backend_pkg_utils_response.ResponseData:
+    properties:
+      data: {}
+      error:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a backend server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Backend API
+  version: "1.0"
+paths:
+  /api/member/login:
+    post:
+      consumes:
+      - application/json
+      description: 小程序会员登录接口，验证用户名密码并返回访问令牌
+      parameters:
+      - description: 登录信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.MemberLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    member:
+                      type: object
+                    refreshToken:
+                      type: string
+                    token:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 用户名或密码错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 会员登录
+      tags:
+      - 会员认证
+  /api/member/register:
+    post:
+      consumes:
+      - application/json
+      description: 小程序会员注册接口，创建新会员账号
+      parameters:
+      - description: 注册信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.MemberRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误或用户名已存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 会员注册
+      tags:
+      - 会员认证
+  /api/user/menus:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前用户的菜单列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                  type: array
+              type: object
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取用户菜单
+      tags:
+      - 菜单管理
+  /gam/admins:
+    get:
+      consumes:
+      - application/json
+      description: 获取管理员列表，支持按用户名搜索、分页和排序
+      parameters:
+      - description: 用户名，用于搜索过滤
+        in: query
+        name: username
+        type: string
+      - default: 1
+        description: 页码，默认值：1
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 每页数量，默认值：10
+        in: query
+        name: pageSize
+        type: integer
+      - description: 排序字段，多个字段用逗号分隔
+        example: '"id,created_at"'
+        in: query
+        name: sortField
+        type: string
+      - description: 排序方式，多个排序方式用逗号分隔(asc/desc)
+        example: '"desc,asc"'
+        in: query
+        name: sortOrder
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    admins:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+                      type: array
+                    total:
+                      type: integer
+                  type: object
+              type: object
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取管理员列表
+      tags:
+      - 管理员管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的管理员账号，包括用户名、密码、角色等信息
+      parameters:
+      - description: 管理员信息，包括用户名、密码、角色ID等
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    admin:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 创建管理员
+      tags:
+      - 管理员管理
+  /gam/admins/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 根据ID删除指定管理员账号
+      parameters:
+      - description: 管理员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的管理员ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 管理员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 删除管理员
+      tags:
+      - 管理员管理
+    get:
+      consumes:
+      - application/json
+      description: 根据管理员ID获取详细信息
+      parameters:
+      - description: 管理员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    admin:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+                  type: object
+              type: object
+        "400":
+          description: 无效的管理员ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 管理员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取单个管理员
+      tags:
+      - 管理员管理
+    put:
+      consumes:
+      - application/json
+      description: 更新管理员信息，包括用户名、角色等（密码单独更新）
+      parameters:
+      - description: 管理员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 管理员信息
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    admin:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Admin'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 管理员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新管理员
+      tags:
+      - 管理员管理
+  /gam/admins/{id}/password:
+    put:
+      consumes:
+      - application/json
+      description: 更新管理员的登录密码，需要提供旧密码
+      parameters:
+      - description: 管理员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 密码信息
+        in: body
+        name: password
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 旧密码错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 管理员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新管理员密码
+      tags:
+      - 管理员管理
+  /gam/admins/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: 更新管理员的启用/禁用状态（0：禁用，1：启用）
+      parameters:
+      - description: 管理员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态信息
+        in: body
+        name: status
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 管理员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新管理员状态
+      tags:
+      - 管理员管理
+  /gam/admins/check-field:
+    get:
+      consumes:
+      - application/json
+      description: 检查指定字段的值在管理员表中是否唯一
+      parameters:
+      - description: 字段名称
+        example: '"username"'
+        in: query
+        name: field
+        required: true
+        type: string
+      - description: 字段值
+        example: '"admin"'
+        in: query
+        name: value
+        required: true
+        type: string
+      - description: 需要排除的管理员ID
+        in: query
+        minimum: 1
+        name: excludeId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    unique:
+                      type: boolean
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 检查管理员字段唯一性
+      tags:
+      - 管理员管理
+  /gam/authmenus:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户的菜单列表和按钮权限
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    menus:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                      type: array
+                    permissions:
+                      items:
+                        type: string
+                      type: array
+                  type: object
+              type: object
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户菜单权限
+      tags:
+      - 认证管理
+  /gam/configs/batch:
+    put:
+      consumes:
+      - application/json
+      description: 批量更新指定配置组下的多个配置项值
+      parameters:
+      - description: 批量配置更新信息
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 配置组不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 批量更新配置
+      tags:
+      - 系统配置
+  /gam/configs/groups:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有系统配置组信息，包括组名称、标识符等
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取配置组列表
+      tags:
+      - 系统配置
+  /gam/configs/items/{groupId}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定配置组下的所有配置项，包括配置键、值、描述等
+      parameters:
+      - description: 配置组ID
+        in: path
+        minimum: 1
+        name: groupId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "400":
+          description: 无效的配置组ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 配置组不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取配置项列表
+      tags:
+      - 系统配置
+  /gam/configs/value:
+    put:
+      consumes:
+      - application/json
+      description: 更新单个配置项的值
+      parameters:
+      - description: 配置更新信息
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 配置项不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新配置值
+      tags:
+      - 系统配置
+  /gam/login:
+    post:
+      consumes:
+      - application/json
+      description: 管理员登录接口，验证用户名密码并返回访问令牌
+      parameters:
+      - description: 登录信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    refreshToken:
+                      type: string
+                    token:
+                      type: string
+                    user:
+                      type: object
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 用户名或密码错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 用户登录
+      tags:
+      - 认证管理
+  /gam/members:
+    get:
+      consumes:
+      - application/json
+      description: 获取会员列表,支持分页和筛选
+      parameters:
+      - description: 用户名
+        in: query
+        name: username
+        type: string
+      - description: 手机号
+        in: query
+        name: mobile
+        type: string
+      - default: 1
+        description: 页码
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 每页数量
+        in: query
+        name: pageSize
+        type: integer
+      - description: 排序字段，多个字段用逗号分隔
+        example: '"id,created_at"'
+        in: query
+        name: sortField
+        type: string
+      - description: 排序方式(asc/desc)，多个排序方式用逗号分隔
+        example: '"desc,asc"'
+        in: query
+        name: sortOrder
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    members:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Member'
+                      type: array
+                    total:
+                      type: integer
+                  type: object
+              type: object
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取会员列表
+      tags:
+      - 会员管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的会员账号
+      parameters:
+      - description: 会员信息
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    member:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Member'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建会员
+      tags:
+      - 会员管理
+  /gam/members/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 根据ID删除会员
+      parameters:
+      - description: 会员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的会员ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 会员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除会员
+      tags:
+      - 会员管理
+    put:
+      consumes:
+      - application/json
+      description: 更新会员信息
+      parameters:
+      - description: 会员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 会员信息
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Member'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    member:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Member'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 会员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新会员
+      tags:
+      - 会员管理
+  /gam/members/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: 更新会员的启用/禁用状态（0：禁用，1：启用）
+      parameters:
+      - description: 会员ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态信息
+        in: body
+        name: status
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 会员不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新会员状态
+      tags:
+      - 会员管理
+  /gam/members/check-field:
+    get:
+      consumes:
+      - application/json
+      description: 检查会员的某个字段值是否唯一（如用户名、手机号等）
+      parameters:
+      - description: 字段名
+        example: '"username"'
+        in: query
+        name: field
+        required: true
+        type: string
+      - description: 字段值
+        example: '"test"'
+        in: query
+        name: value
+        required: true
+        type: string
+      - description: 排除的ID
+        in: query
+        minimum: 1
+        name: excludeId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    unique:
+                      type: boolean
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 检查会员字段唯一性
+      tags:
+      - 会员管理
+  /gam/menus:
+    get:
+      consumes:
+      - application/json
+      description: 获取菜单列表，支持按名称搜索和排序
+      parameters:
+      - description: 菜单名称，用于搜索过滤
+        in: query
+        name: name
+        type: string
+      - description: 排序字段
+        example: '"sort"'
+        in: query
+        name: sortField
+        type: string
+      - description: 排序方式(asc/desc)
+        example: '"asc"'
+        in: query
+        name: sortOrder
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    menus:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                      type: array
+                  type: object
+              type: object
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取菜单列表
+      tags:
+      - 菜单管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的菜单项，支持设置父级菜单
+      parameters:
+      - description: 菜单信息
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    menu:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建菜单
+      tags:
+      - 菜单管理
+  /gam/menus/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定的菜单项，如果存在子菜单则不允许删除
+      parameters:
+      - description: 菜单ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的菜单ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 菜单不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "409":
+          description: 存在子菜单，无法删除
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除菜单
+      tags:
+      - 菜单管理
+    put:
+      consumes:
+      - application/json
+      description: 更新现有菜单的信息，包括名称、路径、组件等
+      parameters:
+      - description: 菜单ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 菜单信息
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    menu:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 菜单不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新菜单
+      tags:
+      - 菜单管理
+  /gam/menus/{id}/hidden:
+    put:
+      consumes:
+      - application/json
+      description: 更新菜单的显示/隐藏状态
+      parameters:
+      - description: 菜单ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 显示状态信息
+        in: body
+        name: hidden
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新菜单显示状态
+      tags:
+      - 菜单管理
+  /gam/menus/{id}/sort:
+    put:
+      consumes:
+      - application/json
+      description: 更新菜单的显示顺序
+      parameters:
+      - description: 菜单ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 排序信息
+        in: body
+        name: sort
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 菜单不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新菜单排序
+      tags:
+      - 菜单管理
+  /gam/menus/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: 更新菜单的启用/禁用状态（0：禁用，1：启用）
+      parameters:
+      - description: 菜单ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态信息
+        in: body
+        name: status
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 菜单不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新菜单状态
+      tags:
+      - 菜单管理
+  /gam/menus/tree:
+    get:
+      consumes:
+      - application/json
+      description: 获取完整的菜单层级结构树
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    menus:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                      type: array
+                  type: object
+              type: object
+        "401":
+          description: 未授权或Token无效
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取菜单树
+      tags:
+      - 菜单管理
+  /gam/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: 使用刷新令牌获取新的访问令牌和刷新令牌
+      parameters:
+      - description: 刷新令牌
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/internal_handlers.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    refreshToken:
+                      type: string
+                    token:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "401":
+          description: 无效的刷新令牌
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 刷新访问令牌
+      tags:
+      - 认证管理
+  /gam/roles:
+    get:
+      consumes:
+      - application/json
+      description: 获取角色列表，支持按名称搜索、分页和排序
+      parameters:
+      - description: 角色名称，用于搜索过滤
+        in: query
+        name: name
+        type: string
+      - default: 1
+        description: 页码，默认值：1
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: 每页数量，默认值：10
+        in: query
+        name: pageSize
+        type: integer
+      - description: 排序字段，多个字段用逗号分隔
+        example: '"id,created_at"'
+        in: query
+        name: sortField
+        type: string
+      - description: 排序方式，多个排序方式用逗号分隔(asc/desc)
+        example: '"desc,asc"'
+        in: query
+        name: sortOrder
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    roles:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+                      type: array
+                    total:
+                      type: integer
+                  type: object
+              type: object
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取角色列表
+      tags:
+      - 角色管理
+    post:
+      consumes:
+      - application/json
+      description: 创建新的角色，包括角色名称、描述等信息
+      parameters:
+      - description: 角色信息，包括名称、描述等
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    role:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+                  type: object
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 创建角色
+      tags:
+      - 角色管理
+  /gam/roles/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 根据角色ID删除指定角色
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的角色ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 删除角色
+      tags:
+      - 角色管理
+    get:
+      consumes:
+      - application/json
+      description: 根据角色ID获取角色的详细信息
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    role:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+                  type: object
+              type: object
+        "400":
+          description: 无效的角色ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取单个角色
+      tags:
+      - 角色管理
+    put:
+      consumes:
+      - application/json
+      description: 根据角色ID更新角色信息
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 需要更新的角色信息
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    role:
+                      $ref: '#/definitions/normaladmin_backend_internal_models.Role'
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新角色
+      tags:
+      - 角色管理
+  /gam/roles/{id}/sort:
+    put:
+      consumes:
+      - application/json
+      description: 更新指定角色的排序值
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 排序信息
+        in: body
+        name: sort
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新角色排序
+      tags:
+      - 角色管理
+  /gam/roles/{id}/status:
+    put:
+      consumes:
+      - application/json
+      description: 更新指定角色的启用/禁用状态
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态信息
+        in: body
+        name: status
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新角色状态
+      tags:
+      - 角色管理
+  /gam/roles/{roleId}/menus:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定角色的菜单权限树和已选中的菜单列表
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: roleId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    checkedMenus:
+                      items:
+                        type: integer
+                      type: array
+                    menuTree:
+                      items:
+                        $ref: '#/definitions/normaladmin_backend_internal_models.Menu'
+                      type: array
+                  type: object
+              type: object
+        "400":
+          description: 无效的角色ID
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取角色菜单权限
+      tags:
+      - 角色管理
+    put:
+      consumes:
+      - application/json
+      description: 更新指定角色的菜单权限
+      parameters:
+      - description: 角色ID
+        in: path
+        minimum: 1
+        name: roleId
+        required: true
+        type: integer
+      - description: 菜单ID列表
+        in: body
+        name: menuIds
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    message:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "404":
+          description: 角色不存在
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 更新角色菜单权限
+      tags:
+      - 角色管理
+  /gam/roles/check-field:
+    get:
+      consumes:
+      - application/json
+      description: 检查指定字段的值在角色表中是否唯一
+      parameters:
+      - description: 字段名称
+        example: '"name"'
+        in: query
+        name: field
+        required: true
+        type: string
+      - description: 字段值
+        example: '"admin"'
+        in: query
+        name: value
+        required: true
+        type: string
+      - description: 需要排除的角色ID
+        in: query
+        minimum: 1
+        name: excludeId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    unique:
+                      type: boolean
+                  type: object
+              type: object
+        "400":
+          description: 无效的请求参数
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 检查角色字段唯一性
+      tags:
+      - 角色管理
+  /gam/upload/batch:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 同时上传多个文件
+      parameters:
+      - description: 要上传的文件数组
+        in: formData
+        name: files[]
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    name:
+                      type: string
+                    path:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 获取上传文件失败或上传过程出错
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 批量上传文件
+      tags:
+      - 文件管理
+  /gam/upload/config:
+    get:
+      consumes:
+      - application/json
+      description: 获取文件上传相关的配置信息，包括文件大小限制、支持的文件类型等
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "400":
+          description: 获取配置失败
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 获取上传配置
+      tags:
+      - 文件管理
+  /gam/upload/delete:
+    post:
+      consumes:
+      - application/json
+      description: 根据文件路径删除已上传的文件
+      parameters:
+      - description: 文件路径信息
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "400":
+          description: 参数错误或删除失败
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 删除文件
+      tags:
+      - 文件管理
+  /gam/upload/file:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传单个文件，支持多种文件类型
+      parameters:
+      - description: 要上传的文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    name:
+                      type: string
+                    path:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 获取上传文件失败或上传过程出错
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 通用文件上传
+      tags:
+      - 文件管理
+  /gam/upload/image:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传单个图片文件，仅支持图片格式（jpg、jpeg、png、gif等）
+      parameters:
+      - description: 要上传的图片文件
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+            - properties:
+                data:
+                  properties:
+                    name:
+                      type: string
+                    path:
+                      type: string
+                    url:
+                      type: string
+                  type: object
+              type: object
+        "400":
+          description: 获取上传文件失败或非图片格式
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+        "500":
+          description: 内部错误
+          schema:
+            $ref: '#/definitions/normaladmin_backend_pkg_utils_response.ResponseData'
+      summary: 图片文件上传
+      tags:
+      - 文件管理
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    description: Bearer {token}
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

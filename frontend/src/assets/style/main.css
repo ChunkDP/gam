@@ -1,0 +1,52 @@
+
+@import "tailwindcss";
+
+
+.ma-search-box {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    border-radius: .25rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    padding: 1rem;
+    --tw-text-opacity: 1;
+    color: rgb(51 65 85 / var(--tw-text-opacity));
+    text-align: left;
+}
+.ma-table-box {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    border-radius: .25rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    padding: 1rem;
+    --tw-text-opacity: 1;
+    color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+.ma-btn-list {
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+}
+.ma-pagination {
+    display: flex
+;
+    justify-content: flex-end;
+}
+.el-pagination {
+    margin-top: 2rem;
+}
+.el-table .el-table__cell {
+    border-right: none !important;
+}
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+  }
+.adaptive-select {
+  width: fit-content;
+  min-width: 120px;
+ 
+}

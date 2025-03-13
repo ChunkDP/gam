@@ -1,0 +1,36 @@
+server:
+  mode: debug
+
+database:
+  driver: mysql
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 3600
+
+jwt:
+  expire_time: 24
+  issuer: base-admin
+  secret_key: "base-admin"
+
+redis:
+  default_ttl: 3600    # 默认1小时
+  lock_timeout: 30     # 锁默认30秒
+
+cors:
+  allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  allowed_headers:
+    - Content-Type
+    - Authorization
+log:
+  level: info
+  max_size: 100    # MB
+  max_age: 30      # days
+  max_backups: 10
+  compress: true 
+security:
+  encrypt_key: "your-32-byte-secret-key-here" # 32字节的密钥

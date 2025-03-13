@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  mode: release
+
+database:
+  host: prod-db
+  port: 3306
+  username: prod_user
+  password: ${DB_PASSWORD}  # 从环境变量获取
+  dbname: base_admin_prod
+
+redis:
+  host: prod-redis
+  port: 6379
+  password: ${REDIS_PASSWORD}
+  db: 0
+
+cors:
+  allowed_origins:
+    - https://admin.example.com
+
+log:
+  level: warn
+  filename: /var/log/normal-admin/app.log 
