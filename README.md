@@ -1,7 +1,8 @@
-# NormalAdmin 项目文档
+# GolangAdminManage
+ 项目文档
 
 ## 项目简介
-NormalAdmin 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。
+GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。
 
 ## 技术栈
 ### 后端
