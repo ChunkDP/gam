@@ -1,10 +1,13 @@
 
 @import "tailwindcss";
 
-
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 .ma-search-box {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+  
     border-radius: .25rem;
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -29,10 +32,10 @@
     align-items: center;
 }
 .ma-pagination {
-    display: flex
-;
+    display: flex;
     justify-content: flex-end;
 }
+
 .el-pagination {
     margin-top: 2rem;
 }
@@ -45,6 +48,7 @@
     justify-content: flex-end;
     text-align: right;
   }
+  
 .adaptive-select {
   width: fit-content;
   min-width: 120px;

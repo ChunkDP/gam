@@ -20,9 +20,3 @@ export const exportLogs = async (params) => {
   })
   return response.data
 }
-
-export default {
-  getLogList,
-  deleteLogs,
-  exportLogs
-}

@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { Bell, Check, Delete, Warning, Message,InfoFilled } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
@@ -97,7 +97,7 @@ dayjs.locale('zh-cn');
 
 const router = useRouter();
 
-const token = sessionStorage.getItem('token');
+
 const notifications = ref([]);
 const unreadCount = ref(0);
 const loading = ref(false);
@@ -204,14 +204,14 @@ const viewNotification = async (notification) => {
 
 // 跳转到通知页面
 const goToNotificationPage = () => {
-  router.push('/notifications');
+  router.push('/layout/user/notifications');
 };
 
 // 获取通知图标
 const getNotificationIcon = (notification) => {
   
   const level = notification.notification.level;
-  console.log(level)
+ 
   if (level === 3) return Warning;
   if (level === 2) return Message;
   return InfoFilled;
@@ -248,19 +248,39 @@ const handleNewNotification = (data) => {
   });
 };
 
+// 添加连接状态监听
+const checkConnection = () => {
+  if (!websocketService.isConnected()) {
+    console.log('WebSocket disconnected, attempting to reconnect...');
+    websocketService.reconnect();
+  }
+};
+
+// 设置定期检查
+let connectionChecker = null;
+
 onMounted(async () => {
- 
   await getUnreadCount();
-  
-  // 连接WebSocket
+  const token = sessionStorage.getItem('token');
+ 
   if (token) {
     try {
       await websocketService.connect(token);
       websocketService.on('notification', handleNewNotification);
+      
+      // 每30秒检查一次连接状态
+      connectionChecker = setInterval(checkConnection, 30000);
     } catch (error) {
       console.error('Failed to connect WebSocket:', error);
     }
   }
+});
+
+onBeforeUnmount(() => {
+  if (connectionChecker) {
+    clearInterval(connectionChecker);
+  }
+  websocketService.disconnect();
 });
 </script>
 

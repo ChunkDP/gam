@@ -1,2 +1,5 @@
 backend/cmd/app/uploads/
 docs/
+.idea/
+.vscode/
+.cursor/

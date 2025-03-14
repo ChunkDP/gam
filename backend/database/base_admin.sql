@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80019
 File Encoding         : 65001
 
-Date: 2025-02-14 21:17:05
+Date: 2025-03-14 09:57:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,33 @@ CREATE TABLE `casbin_rule` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `idx_casbin_rule` (`ptype`,`v0`,`v1`,`v2`,`v3`,`v4`,`v5`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of casbin_rule
+-- ----------------------------
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/articles', 'POST', '', '', '', '4');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/articles/:id', 'DELETE', '', '', '', '6');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/articles/:id', 'PUT', '', '', '', '5');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/articles/import', 'POST', '', '', '', '7');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/members', 'POST', '', '', '', '1');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/members/:id', 'DELETE', '', '', '', '3');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/members/:id', 'PUT', '', '', '', '2');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications', 'GET', '', '', '', '13');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications', 'POST', '', '', '', '14');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/:id', 'DELETE', '', '', '', '16');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/:id', 'PUT', '', '', '', '15');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/:id/publish', 'POST', '', '', '', '17');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/:id/recall', 'POST', '', '', '', '18');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/types', 'GET', '', '', '', '19');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/types', 'POST', '', '', '', '20');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/types/:id', 'DELETE', '', '', '', '22');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/notifications/types/:id', 'PUT', '', '', '', '21');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/system/monitor/collect', 'POST', '', '', '', '12');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/system/monitor/latest', 'GET', '', '', '', '10');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/api/system/monitor/list', 'GET', '', '', '', '11');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/gam/system/logs', 'DELETE', '', '', '', '9');
+INSERT INTO `casbin_rule` VALUES ('p', '1', '/gam/system/logs', 'GET', '', '', '', '8');
 
 -- ----------------------------
 -- Table structure for `config_groups`
@@ -231,8 +257,12 @@ CREATE TABLE `members` (
   UNIQUE KEY `idx_members_mobile` (`mobile`),
   UNIQUE KEY `idx_members_email` (`email`),
   KEY `idx_members_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='会员表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='会员表';
 
+-- ----------------------------
+-- Records of members
+-- ----------------------------
+INSERT INTO `members` VALUES ('1', 'user1', '$2a$10$cwZDFJFPDDNphGIy5O8KTeJ1.B1abkoEi0Nu53BjXGAkxJiOZIdwe', '顶顶顶顶', '', '13390909289', 'aassa@qq.com', '0', null, '1', '0', '1', null, '', '2025-03-05 15:13:22.704', '2025-03-05 15:13:22.704', null);
 
 -- ----------------------------
 -- Table structure for `menus`
@@ -259,7 +289,7 @@ CREATE TABLE `menus` (
   `api_path` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `idx_menus_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of menus
@@ -284,19 +314,29 @@ INSERT INTO `menus` VALUES ('33', '28', '编辑配置', 'ConfigEdit', '', '', ''
 INSERT INTO `menus` VALUES ('34', '28', '删除配置', 'ConfigDelete', '', '', '', '3', '0', 'button', 'system:config:delete', '1', '2025-01-15 12:29:38.000', '2025-01-15 12:29:38.000', null, '', null, null);
 INSERT INTO `menus` VALUES ('40', '0', '会员管理', 'Members', '/members', '', 'User', '3', '0', 'menu', 'system:members:view', '1', '2025-01-19 22:33:54.000', '2025-01-19 22:33:54.000', null, '', null, null);
 INSERT INTO `menus` VALUES ('41', '40', '会员列表', 'MemberList', '/members/list', 'member/MemberList', 'List', '1', '0', 'menu', 'system:member:list', '1', '2025-01-19 22:33:54.000', '2025-01-19 22:33:54.000', null, 'Members', null, null);
-INSERT INTO `menus` VALUES ('45', '41', '添加会员', 'MemberAdd', '', '', '', '1', '0', 'button', 'system:member:create', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'POST', '/gam/members');
-INSERT INTO `menus` VALUES ('46', '41', '编辑会员', 'MemberEdit', '', '', '', '2', '0', 'button', 'system:member:update', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'PUT', '/gam/members/:id');
-INSERT INTO `menus` VALUES ('47', '41', '删除会员', 'MemberDelete', '', '', '', '3', '0', 'button', 'system:member:delete', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'DELETE', '/gam/members/:id');
-INSERT INTO `menus` VALUES (60, 5, '日志管理', 'LogManage', '/system/logs', 'system/LogManage', 'Document', 6, 0, 'menu', 'system:log:list', 1, NOW(), NOW(), NULL, 'System', NULL, NULL);
-INSERT INTO `menus` VALUES (61, 60, '查看日志', 'LogView', '', '', '', 1, 0, 'button', 'system:log:view', 1, NOW(), NOW(), NULL, '', 'GET', '/gam/system/logs');
-INSERT INTO `menus` VALUES (62, 60, '删除日志', 'LogDelete', '', '', '', 2, 0, 'button', 'system:log:delete', 1, NOW(), NOW(), NULL, '', 'DELETE', '/gam/system/logs');
-
-INSERT INTO `menus` VALUES (70, 5, '系统监控', 'SystemMonitor', '/system/monitor', 'system/Monitor', 'Monitor', 7, 0, 'menu', 'system:monitor:list', 1, NOW(), NOW(), NULL, 'System', NULL, NULL);
-
--- 添加系统监控相关按钮权限
-INSERT INTO `menus` VALUES (71, 70, '查看监控', 'MonitorView', '', '', '', 1, 0, 'button', 'system:monitor:view', 1, NOW(), NOW(), NULL, '', 'GET', '/api/system/monitor/latest');
-INSERT INTO `menus` VALUES (72, 70, '监控历史', 'MonitorHistory', '', '', '', 2, 0, 'button', 'system:monitor:history', 1, NOW(), NOW(), NULL, '', 'GET', '/api/system/monitor/list');
-INSERT INTO `menus` VALUES (73, 70, '手动采集', 'MonitorCollect', '', '', '', 3, 0, 'button', 'system:monitor:collect', 1, NOW(), NOW(), NULL, '', 'POST', '/api/system/monitor/collect');
+INSERT INTO `menus` VALUES ('45', '41', '添加会员', 'MemberAdd', '', '', '', '1', '0', 'button', 'system:member:create', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'POST', '/api/members');
+INSERT INTO `menus` VALUES ('46', '41', '编辑会员', 'MemberEdit', '', '', '', '2', '0', 'button', 'system:member:update', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'PUT', '/api/members/:id');
+INSERT INTO `menus` VALUES ('47', '41', '删除会员', 'MemberDelete', '', '', '', '3', '0', 'button', 'system:member:delete', '1', '2025-01-19 22:33:55.000', '2025-01-19 22:33:55.000', null, '', 'DELETE', '/api/members/:id');
+INSERT INTO `menus` VALUES ('60', '5', '日志管理', 'LogManage', '/system/logs', 'system/LogManage', 'Document', '6', '0', 'menu', 'system:log:list', '1', '2025-03-12 17:57:30.000', '2025-03-12 17:57:30.000', null, 'System', null, null);
+INSERT INTO `menus` VALUES ('61', '60', '查看日志', 'LogView', '', '', '', '1', '0', 'button', 'system:log:view', '1', '2025-03-12 17:57:30.000', '2025-03-12 17:57:30.000', null, '', 'GET', '/gam/system/logs');
+INSERT INTO `menus` VALUES ('62', '60', '删除日志', 'LogDelete', '', '', '', '2', '0', 'button', 'system:log:delete', '1', '2025-03-12 17:57:30.000', '2025-03-12 17:57:30.000', null, '', 'DELETE', '/gam/system/logs');
+INSERT INTO `menus` VALUES ('70', '5', '系统监控', 'SystemMonitor', '/system/monitor', 'system/Monitor', 'Monitor', '7', '0', 'menu', 'system:monitor:list', '1', '2025-03-13 14:00:30.000', '2025-03-13 14:00:30.000', null, 'System', null, null);
+INSERT INTO `menus` VALUES ('71', '70', '查看监控', 'MonitorView', '', '', '', '1', '0', 'button', 'system:monitor:view', '1', '2025-03-13 14:00:30.000', '2025-03-13 14:00:30.000', null, '', 'GET', '/api/system/monitor/latest');
+INSERT INTO `menus` VALUES ('72', '70', '监控历史', 'MonitorHistory', '', '', '', '2', '0', 'button', 'system:monitor:history', '1', '2025-03-13 14:00:30.000', '2025-03-13 14:00:30.000', null, '', 'GET', '/api/system/monitor/list');
+INSERT INTO `menus` VALUES ('73', '70', '手动采集', 'MonitorCollect', '', '', '', '3', '0', 'button', 'system:monitor:collect', '1', '2025-03-13 14:00:30.000', '2025-03-13 14:00:30.000', null, '', 'POST', '/api/system/monitor/collect');
+INSERT INTO `menus` VALUES ('80', '5', '通知管理', 'NotificationManage', '/system/notifications', 'system/NotificationManage', 'Bell', '8', '0', 'menu', 'system:notification:list', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, 'System', null, null);
+INSERT INTO `menus` VALUES ('81', '80', '查看通知', 'NotificationView', '', '', '', '1', '0', 'button', 'system:notification:view', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'GET', '/api/notifications');
+INSERT INTO `menus` VALUES ('82', '80', '创建通知', 'NotificationCreate', '', '', '', '2', '0', 'button', 'system:notification:create', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'POST', '/api/notifications');
+INSERT INTO `menus` VALUES ('83', '80', '编辑通知', 'NotificationEdit', '', '', '', '3', '0', 'button', 'system:notification:edit', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'PUT', '/api/notifications/:id');
+INSERT INTO `menus` VALUES ('84', '80', '删除通知', 'NotificationDelete', '', '', '', '4', '0', 'button', 'system:notification:delete', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'DELETE', '/api/notifications/:id');
+INSERT INTO `menus` VALUES ('85', '80', '发布通知', 'NotificationPublish', '', '', '', '5', '0', 'button', 'system:notification:publish', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'POST', '/api/notifications/:id/publish');
+INSERT INTO `menus` VALUES ('86', '80', '撤回通知', 'NotificationRecall', '', '', '', '6', '0', 'button', 'system:notification:recall', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'POST', '/api/notifications/:id/recall');
+INSERT INTO `menus` VALUES ('87', '5', '通知类型管理', 'NotificationTypeManage', '/system/notification-types', 'system/NotificationTypeManage', 'List', '9', '0', 'menu', 'system:notification-type:list', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, 'System', null, null);
+INSERT INTO `menus` VALUES ('88', '87', '查看通知类型', 'NotificationTypeView', '', '', '', '1', '0', 'button', 'system:notification-type:view', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'GET', '/api/notifications/types');
+INSERT INTO `menus` VALUES ('89', '87', '创建通知类型', 'NotificationTypeCreate', '', '', '', '2', '0', 'button', 'system:notification-type:create', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'POST', '/api/notifications/types');
+INSERT INTO `menus` VALUES ('90', '87', '编辑通知类型', 'NotificationTypeEdit', '', '', '', '3', '0', 'button', 'system:notification-type:edit', '1', '2025-03-13 16:18:42.000', '2025-03-13 16:18:42.000', null, '', 'PUT', '/api/notifications/types/:id');
+INSERT INTO `menus` VALUES ('91', '87', '删除通知类型', 'NotificationTypeDelete', '', '', '', '4', '0', 'button', 'system:notification-type:delete', '1', '2025-03-13 16:18:43.000', '2025-03-13 16:18:43.000', null, '', 'DELETE', '/api/notifications/types/:id');
+INSERT INTO `menus` VALUES ('92', '0', '我的通知', 'MyNotification', '/user/notifications', 'user/NotificationCenter', 'Message', '3', '0', 'menu', 'user:notification:list', '1', '2025-03-13 16:18:43.000', '2025-03-13 16:18:43.000', null, 'User', null, null);
 
 -- ----------------------------
 -- Table structure for `migration_records`
@@ -308,9 +348,82 @@ CREATE TABLE `migration_records` (
   `created_at` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_migration_records_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 
+-- ----------------------------
+-- Table structure for `notifications`
+-- ----------------------------
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE `notifications` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '通知标题',
+  `content` text COMMENT '通知内容',
+  `type_id` int unsigned NOT NULL COMMENT '通知类型ID',
+  `level` tinyint(1) NOT NULL DEFAULT '1' COMMENT '重要程度(1普通 2重要 3紧急)',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态(0草稿 1已发布 2已撤回)',
+  `sender_id` int unsigned DEFAULT NULL COMMENT '发送者ID',
+  `sender_name` varchar(50) DEFAULT NULL COMMENT '发送者名称',
+  `publish_time` datetime DEFAULT NULL COMMENT '发布时间',
+  `expiration_time` varchar(50) DEFAULT NULL COMMENT '杩囨湡鏃堕棿',
+  `receiver_type` varchar(10) NOT NULL DEFAULT '0' COMMENT '鏄惁鍙戦€佺粰鎵€鏈夌敤鎴?',
+  `read_count` int NOT NULL DEFAULT '0' COMMENT '已读数量',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_type_id` (`type_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_publish_time` (`publish_time`),
+  CONSTRAINT `fk_notification_type` FOREIGN KEY (`type_id`) REFERENCES `notification_types` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知表';
+
+
+-- ----------------------------
+-- Table structure for `notification_receivers`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_receivers`;
+CREATE TABLE `notification_receivers` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `notification_id` int unsigned NOT NULL COMMENT '通知ID',
+  `user_id` int unsigned NOT NULL COMMENT '用户ID',
+  `user_type` varchar(20) NOT NULL COMMENT '用户类型(admin/member)',
+  `user_name` varchar(50) DEFAULT NULL COMMENT '用户名称',
+  `is_read` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已读',
+  `read_time` datetime DEFAULT NULL COMMENT '阅读时间',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_notification_user` (`notification_id`,`user_id`,`user_type`),
+  KEY `idx_user_id_type` (`user_id`,`user_type`),
+  KEY `idx_is_read` (`is_read`),
+  KEY `idx_is_deleted` (`is_deleted`),
+  CONSTRAINT `fk_notification_receiver` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知接收记录表';
+
+
+-- ----------------------------
+-- Table structure for `notification_types`
+-- ----------------------------
+DROP TABLE IF EXISTS `notification_types`;
+CREATE TABLE `notification_types` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '类型名称',
+  `code` varchar(50) NOT NULL COMMENT '类型编码',
+  `description` varchar(255) DEFAULT NULL COMMENT '类型描述',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知类型表';
+
+-- ----------------------------
+-- Records of notification_types
+-- ----------------------------
+INSERT INTO `notification_types` VALUES ('1', '系统通知', 'SYSTEM', '系统升级、维护等相关通知', '2025-03-13 16:56:26', '2025-03-13 16:56:26');
+INSERT INTO `notification_types` VALUES ('2', '任务通知', 'TASK', '任务分配、任务完成等相关通知', '2025-03-13 16:56:26', '2025-03-13 16:56:26');
+INSERT INTO `notification_types` VALUES ('3', '警报通知', 'ALERT', '系统异常、安全警报等相关通知', '2025-03-13 16:56:26', '2025-03-13 16:56:26');
+INSERT INTO `notification_types` VALUES ('4', '个人通知', 'PERSONAL', '个人消息提醒、待办事项等相关通知', '2025-03-13 16:56:26', '2025-03-13 16:56:26');
 
 -- ----------------------------
 -- Table structure for `roles`
@@ -342,6 +455,7 @@ CREATE TABLE `roles` (
 -- ----------------------------
 INSERT INTO `roles` VALUES ('1', '超级管理员', 'SUPER_ADMIN', '系统超级管理员', '1', '2025-01-14 12:47:41.000', '2025-01-18 10:42:25.387', null, '1', '3', null, '1');
 INSERT INTO `roles` VALUES ('2', '普通用户', 'USER', '普通用户', '1', '2025-01-14 12:47:41.000', '2025-01-18 11:11:17.022', null, '0', '9', null, '1');
+
 -- ----------------------------
 -- Table structure for `role_menus`
 -- ----------------------------
@@ -354,7 +468,123 @@ CREATE TABLE `role_menus` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_role_menu` (`role_id`,`menu_id`),
   KEY `idx_menu_id` (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色菜单关联表';
+
+-- ----------------------------
+-- Records of role_menus
+-- ----------------------------
+INSERT INTO `role_menus` VALUES ('164', '1', '1', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('165', '1', '40', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('166', '1', '41', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('167', '1', '45', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('168', '1', '46', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('169', '1', '47', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('170', '1', '92', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('171', '1', '5', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('172', '1', '19', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('173', '1', '21', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('174', '1', '22', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('175', '1', '23', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('176', '1', '27', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('177', '1', '29', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('178', '1', '30', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('179', '1', '31', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('180', '1', '20', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('181', '1', '24', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('182', '1', '25', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('183', '1', '26', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('184', '1', '28', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('185', '1', '32', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('186', '1', '33', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('187', '1', '34', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('188', '1', '60', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('189', '1', '61', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('190', '1', '62', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('191', '1', '70', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('192', '1', '71', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('193', '1', '72', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('194', '1', '73', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('195', '1', '80', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('196', '1', '81', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('197', '1', '82', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('198', '1', '83', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('199', '1', '84', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('200', '1', '85', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('201', '1', '86', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('202', '1', '87', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('203', '1', '88', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('204', '1', '89', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('205', '1', '90', '2025-03-13 18:38:39');
+INSERT INTO `role_menus` VALUES ('206', '1', '91', '2025-03-13 18:38:39');
+
+-- ----------------------------
+-- Table structure for `system_logs`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_logs`;
+CREATE TABLE `system_logs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned DEFAULT NULL COMMENT '操作用户ID',
+  `username` varchar(100) DEFAULT NULL COMMENT '操作用户名',
+  `module` varchar(50) NOT NULL COMMENT '操作模块',
+  `action` varchar(50) NOT NULL COMMENT '操作动作',
+  `method` varchar(10) NOT NULL COMMENT '请求方法',
+  `url` varchar(255) NOT NULL COMMENT '请求URL',
+  `ip` varchar(50) NOT NULL COMMENT '请求IP',
+  `user_agent` varchar(500) DEFAULT NULL COMMENT '用户代理',
+  `params` text COMMENT '请求参数',
+  `result` text COMMENT '操作结果',
+  `status` int NOT NULL DEFAULT '0' COMMENT '状态码',
+  `duration` bigint NOT NULL DEFAULT '0' COMMENT '执行时长(ms)',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_created_at` (`created_at`),
+  KEY `idx_module` (`module`)
+) ENGINE=InnoDB AUTO_INCREMENT=669 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统日志表';
+
+-- ----------------------------
+-- Table structure for `system_monitors`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_monitors`;
+CREATE TABLE `system_monitors` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cpu_usage` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'CPU使用率',
+  `memory_usage` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '内存使用率',
+  `disk_usage` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT '磁盘使用率',
+  `network_io` varchar(255) DEFAULT NULL COMMENT '网络IO',
+  `process_count` int NOT NULL DEFAULT '0' COMMENT '进程数',
+  `load_average` varchar(50) DEFAULT NULL COMMENT '负载均衡',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统监控表';
+
+-- ----------------------------
+-- Table structure for `system_notices`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_notices`;
+CREATE TABLE `system_notices` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL COMMENT '通知标题',
+  `content` text NOT NULL COMMENT '通知内容',
+  `type` varchar(20) NOT NULL DEFAULT 'system' COMMENT '通知类型：system/maintenance/update',
+  `level` varchar(20) NOT NULL DEFAULT 'info' COMMENT '通知级别：info/warning/error',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态：0-未发布 1-已发布',
+  `start_time` timestamp NULL DEFAULT NULL COMMENT '生效时间',
+  `end_time` timestamp NULL DEFAULT NULL COMMENT '结束时间',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_start_time` (`start_time`),
+  KEY `idx_end_time` (`end_time`),
+  KEY `idx_deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统通知表';
+
+-- ----------------------------
+-- Records of system_notices
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `upload_files`
@@ -365,69 +595,15 @@ CREATE TABLE `upload_files` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '更新时间',
   `deleted_at` datetime DEFAULT NULL COMMENT '删除时间',
-  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件名',
-  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
-  `file_type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件类型',
+  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件名',
+  `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
+  `file_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件类型',
   `file_size` bigint NOT NULL COMMENT '文件大小(字节)',
-  `file_ext` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件扩展名',
-  `file_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件访问URL',
+  `file_ext` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件扩展名',
+  `file_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件访问URL',
   PRIMARY KEY (`id`),
   KEY `idx_upload_files_deleted_at` (`deleted_at`),
   KEY `idx_upload_files_file_type` (`file_type`),
   KEY `idx_upload_files_file_ext` (`file_ext`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='上传文件记录表';
--- 创建系统日志表
-CREATE TABLE IF NOT EXISTS `system_logs` (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `user_id` bigint(20) UNSIGNED DEFAULT NULL COMMENT '操作用户ID',
-    `username` varchar(100) DEFAULT NULL COMMENT '操作用户名',
-    `module` varchar(50) NOT NULL COMMENT '操作模块',
-    `action` varchar(50) NOT NULL COMMENT '操作动作',
-    `method` varchar(10) NOT NULL COMMENT '请求方法',
-    `url` varchar(255) NOT NULL COMMENT '请求URL',
-    `ip` varchar(50) NOT NULL COMMENT '请求IP',
-    `user_agent` varchar(500) DEFAULT NULL COMMENT '用户代理',
-    `params` text DEFAULT NULL COMMENT '请求参数',
-    `result` text DEFAULT NULL COMMENT '操作结果',
-    `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态码',
-    `duration` bigint(20) NOT NULL DEFAULT 0 COMMENT '执行时长(ms)',
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    PRIMARY KEY (`id`),
-    KEY `idx_user_id` (`user_id`),
-    KEY `idx_created_at` (`created_at`),
-    KEY `idx_module` (`module`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='上传文件记录表';
 
--- 创建系统监控表
-CREATE TABLE IF NOT EXISTS `system_monitors` (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `cpu_usage` decimal(5,2) NOT NULL DEFAULT 0.00 COMMENT 'CPU使用率',
-    `memory_usage` decimal(5,2) NOT NULL DEFAULT 0.00 COMMENT '内存使用率',
-    `disk_usage` decimal(5,2) NOT NULL DEFAULT 0.00 COMMENT '磁盘使用率',
-    `network_io` varchar(255) DEFAULT NULL COMMENT '网络IO',
-    `process_count` int(11) NOT NULL DEFAULT 0 COMMENT '进程数',
-    `load_average` varchar(50) DEFAULT NULL COMMENT '负载均衡',
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    PRIMARY KEY (`id`),
-    KEY `idx_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统监控表';
-
--- 创建系统通知表
-CREATE TABLE IF NOT EXISTS `system_notices` (
-    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `title` varchar(255) NOT NULL COMMENT '通知标题',
-    `content` text NOT NULL COMMENT '通知内容',
-    `type` varchar(20) NOT NULL DEFAULT 'system' COMMENT '通知类型：system/maintenance/update',
-    `level` varchar(20) NOT NULL DEFAULT 'info' COMMENT '通知级别：info/warning/error',
-    `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态：0-未发布 1-已发布',
-    `start_time` timestamp NULL DEFAULT NULL COMMENT '生效时间',
-    `end_time` timestamp NULL DEFAULT NULL COMMENT '结束时间',
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-    PRIMARY KEY (`id`),
-    KEY `idx_status` (`status`),
-    KEY `idx_start_time` (`start_time`),
-    KEY `idx_end_time` (`end_time`),
-    KEY `idx_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统通知表';

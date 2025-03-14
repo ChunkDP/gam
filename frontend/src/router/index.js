@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import Login from '../views/Login.vue';
 import Layout from '../views/Layout.vue';
 import Page404 from '../views/404.vue';
+import websocketService from '../services/websocket';
 const routes = [
   {
 
@@ -93,7 +94,13 @@ router.beforeEach(async (to, from, next) => {
    
     return next('/login');
   }
-
+  // // 保持WebSocket连接
+  // if (websocketService.isConnected()) {
+  //   console.log('WebSocket connection maintained during route change');
+  // } else {
+  //   console.log('WebSocket disconnected, attempting to reconnect...');
+  //   websocketService.reconnect();
+  // }
   if(token && userPermissionsStore.roleMenu.length === 0){ 
      
     await loadDynamicRoutes();

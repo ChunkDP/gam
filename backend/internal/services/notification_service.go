@@ -32,6 +32,7 @@ type NotificationService interface {
 	RecallNotification(id uint) error
 
 	// 用户通知相关
+	GetNotificationStats(notificationID uint) (map[string]int64, error)
 	GetUserNotifications(userID uint, userType string, query *models.UserNotificationQuery) ([]models.NotificationReceiver, int64, error)
 	MarkNotificationAsRead(notificationID uint, userID uint, userType string) error
 	MarkAllNotificationsAsRead(userID uint, userType string) error
@@ -290,21 +291,28 @@ func (s *notificationService) PublishNotification(id uint, currentUserID uint, c
 	}
 
 	// 发送WebSocket消息
-	wsMessage := map[string]interface{}{
+	notificationMsg := map[string]interface{}{
 		"type":       "notification",
 		"action":     "new",
+		"user_id":    currentUserID,
+		"user_type":  currentUserType,
 		"id":         notification.ID,
 		"title":      notification.Title,
 		"content":    notification.Content,
 		"level":      notification.Level,
 		"createTime": notification.CreatedAt,
 	}
+	// 将消息发送到RabbitMQ
+	msgBytes, err := json.Marshal(notificationMsg)
+	if err != nil {
+		log.Printf("序列化通知消息失败: %v", err)
+		return err
+	}
 
-	// 根据接收者类型发送WebSocket消息
-	for _, user := range userInfos {
-		if err := s.notificationHub.SendToUser(user.UserID, user.UserType, wsMessage); err != nil {
-			log.Printf("发送WebSocket消息失败: %v", err)
-		}
+	// 发送到RabbitMQ的通知队列
+	if err := s.rabbitmq.PublishMessage("notifications", msgBytes); err != nil {
+		log.Printf("发送RabbitMQ消息失败: %v", err)
+		return err
 	}
 
 	return nil
@@ -343,11 +351,23 @@ func (s *notificationService) RecallNotification(id uint) error {
 		tx.Rollback()
 		return err
 	}
-
+	// 更新所有接收记录为已撤回
+	now := time.Now()
+	// 更新所有接收记录的撤回状态
+	if err := tx.Model(&models.NotificationReceiver{}).
+		Where("notification_id = ?", id).
+		Updates(map[string]interface{}{
+			"is_recalled": true,
+			"recall_time": now,
+		}).Error; err != nil {
+		tx.Rollback()
+		return fmt.Errorf("更新通知接收记录失败: %w", err)
+	}
 	// 发送撤回消息到RabbitMQ
 	recallMsg := map[string]interface{}{
-		"id":      notification.ID,
+		"type":    "notification",
 		"action":  "recall",
+		"id":      notification.ID,
 		"message": "通知已被撤回",
 	}
 	msgBytes, err := json.Marshal(recallMsg)
@@ -372,7 +392,9 @@ func (s *notificationService) GetUserNotifications(userID uint, userType string,
 	db := s.db.Model(&models.NotificationReceiver{}).
 		Where("user_id = ? AND user_type = ? AND is_deleted = ?", userID, userType, false).
 		Preload("Notification.Type")
-
+	if query.ShowRecalled != nil {
+		db = db.Where("is_recalled = ?", *query.ShowRecalled)
+	}
 	// 应用查询条件
 	if query.IsRead != nil {
 		db = db.Where("is_read = ?", *query.IsRead)
@@ -399,7 +421,7 @@ func (s *notificationService) GetUserNotifications(userID uint, userType string,
 
 	// 分页查询
 	offset := (query.Page - 1) * query.PageSize
-	if err := db.Order("notification_receivers.created_at DESC").
+	if err := db.Debug().Order("notification_receivers.created_at DESC").
 		Offset(offset).
 		Limit(query.PageSize).
 		Find(&receivers).Error; err != nil {
@@ -411,34 +433,98 @@ func (s *notificationService) GetUserNotifications(userID uint, userType string,
 
 // MarkNotificationAsRead 标记通知为已读
 func (s *notificationService) MarkNotificationAsRead(notificationID uint, userID uint, userType string) error {
+	// 开启事务
+	tx := s.db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
 	now := time.Now()
-	result := s.db.Model(&models.NotificationReceiver{}).
-		Where("notification_id = ? AND user_id = ? AND user_type = ?", notificationID, userID, userType).
-		Updates(map[string]interface{}{
-			"is_read":   true,
-			"read_time": now,
-		})
 
-	if result.Error != nil {
-		return result.Error
-	}
-
-	if result.RowsAffected == 0 {
+	// 检查是否已读
+	var receiver models.NotificationReceiver
+	err := tx.Where("notification_id = ? AND user_id = ? AND user_type = ?",
+		notificationID, userID, userType).First(&receiver).Error
+	if err != nil {
+		tx.Rollback()
 		return errors.New("通知不存在或无权限访问")
 	}
 
-	return nil
+	// 如果未读，则更新已读状态并增加已读计数
+	if !receiver.IsRead {
+		// 更新接收记录为已读
+		if err := tx.Model(&receiver).Updates(map[string]interface{}{
+			"is_read":   true,
+			"read_time": now,
+		}).Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		// 增加通知的已读计数
+		if err := tx.Model(&models.Notification{}).
+			Where("id = ?", notificationID).
+			UpdateColumn("read_count", gorm.Expr("read_count + ?", 1)).
+			Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	return tx.Commit().Error
 }
 
 // MarkAllNotificationsAsRead 标记所有通知为已读
 func (s *notificationService) MarkAllNotificationsAsRead(userID uint, userType string) error {
+	// 开启事务
+	tx := s.db.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
 	now := time.Now()
-	return s.db.Model(&models.NotificationReceiver{}).
+
+	// 获取所有未读的通知接收记录
+	var unreadReceivers []models.NotificationReceiver
+	if err := tx.Where("user_id = ? AND user_type = ? AND is_read = ?",
+		userID, userType, false).Find(&unreadReceivers).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// 按通知ID分组，统计每个通知新增的已读数量
+	notificationCounts := make(map[uint]int64)
+	for _, receiver := range unreadReceivers {
+		notificationCounts[receiver.NotificationID]++
+	}
+
+	// 更新接收记录为已读
+	if err := tx.Model(&models.NotificationReceiver{}).
 		Where("user_id = ? AND user_type = ? AND is_read = ?", userID, userType, false).
 		Updates(map[string]interface{}{
 			"is_read":   true,
 			"read_time": now,
-		}).Error
+		}).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// 批量更新通知的已读计数
+	for notificationID, count := range notificationCounts {
+		if err := tx.Model(&models.Notification{}).
+			Where("id = ?", notificationID).
+			UpdateColumn("read_count", gorm.Expr("read_count + ?", count)).
+			Error; err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	return tx.Commit().Error
 }
 
 // DeleteUserNotification 删除用户通知（软删除）
@@ -501,4 +587,41 @@ func (s *notificationService) GetNotificationReceivers(notificationID uint, quer
 	}
 
 	return receivers, total, nil
+}
+
+// GetNotificationStats 获取通知统计信息
+func (s *notificationService) GetNotificationStats(notificationID uint) (map[string]int64, error) {
+	var stats struct {
+		TotalReceivers int64
+		ReadCount      int64
+		RecalledRead   int64 // 撤回前已读数量
+	}
+
+	// 获取总接收者数量
+	if err := s.db.Model(&models.NotificationReceiver{}).
+		Where("notification_id = ?", notificationID).
+		Count(&stats.TotalReceivers).Error; err != nil {
+		return nil, err
+	}
+
+	// 获取已读数量
+	if err := s.db.Model(&models.NotificationReceiver{}).
+		Where("notification_id = ? AND is_read = ?", notificationID, true).
+		Count(&stats.ReadCount).Error; err != nil {
+		return nil, err
+	}
+
+	// 获取撤回前已读数量
+	if err := s.db.Model(&models.NotificationReceiver{}).
+		Where("notification_id = ? AND is_read = ? AND read_time < recall_time",
+			notificationID, true).
+		Count(&stats.RecalledRead).Error; err != nil {
+		return nil, err
+	}
+
+	return map[string]int64{
+		"total_receivers": stats.TotalReceivers,
+		"read_count":      stats.ReadCount,
+		"recalled_read":   stats.RecalledRead,
+	}, nil
 }

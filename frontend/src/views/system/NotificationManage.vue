@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-manage">
+  <div class="ma-search-box">
     <el-card>
       <template #header>
         <div class="card-header">
@@ -14,7 +14,7 @@
           <el-input v-model="searchForm.title" placeholder="请输入标题" clearable />
         </el-form-item>
         <el-form-item label="类型">
-          <el-select v-model="searchForm.type_id" placeholder="请选择类型" clearable>
+          <el-select v-model="searchForm.type_id" placeholder="请选择类型" clearable class="adaptive-select">
             <el-option
               v-for="type in notificationTypes"
               :key="type.id"
@@ -24,14 +24,14 @@
           </el-select>
         </el-form-item>
         <el-form-item label="重要程度">
-          <el-select v-model="searchForm.level" placeholder="请选择重要程度" clearable>
+          <el-select v-model="searchForm.level" placeholder="请选择重要程度" clearable class="adaptive-select">
             <el-option :value="1" label="普通" />
             <el-option :value="2" label="重要" />
             <el-option :value="3" label="紧急" />
           </el-select>
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="searchForm.status" placeholder="请选择状态" clearable>
+          <el-select v-model="searchForm.status" placeholder="请选择状态" clearable class="adaptive-select">
             <el-option :value="0" label="草稿" />
             <el-option :value="1" label="已发布" />
             <el-option :value="2" label="已撤回" />
@@ -137,8 +137,8 @@
       </el-table>
       
       <!-- 分页 -->
-      <div class="pagination-container">
-        <el-pagination
+      <div class="pagination">
+        <el-pagination background
           v-model:current-page="currentPage"
           v-model:page-size="pageSize"
           :page-sizes="[10, 20, 50, 100]"
@@ -226,28 +226,82 @@
   <el-dialog
     v-model="detailDialogVisible"
     title="通知详情"
-    width="600px"
+    width="800px"
+    class="notification-detail-dialog"
   >
     <div v-if="currentNotification" class="notification-detail">
-      <h2 class="notification-title">{{ currentNotification.title }}</h2>
-      <div class="notification-meta">
-        <el-tag
-          :type="currentNotification.level === 3 ? 'danger' : (currentNotification.level === 2 ? 'warning' : 'info')"
-          size="small"
-        >
-          {{ currentNotification.level === 3 ? '紧急' : (currentNotification.level === 2 ? '重要' : '普通') }}
-        </el-tag>
-        <span class="notification-type">{{ currentNotification.type ? currentNotification.type.name : '-' }}</span>
-        <span class="notification-time">{{ currentNotification.created_at }}</span>
-      </div>
-      <el-divider />
-      <div class="notification-content">{{ currentNotification.content }}</div>
-      <el-divider />
-      <div class="notification-footer">
-        <div>发送范围: {{ currentNotification.is_all_user ? '全部用户' : '指定用户' }}</div>
-        <div>已读数量: {{ currentNotification.read_count }}</div>
-        <div v-if="currentNotification.expiration_time">过期时间: {{ currentNotification.expiration_time }}</div>
-      </div>
+      <!-- 基本信息卡片 -->
+      <el-card class="mb-4">
+        <template #header>
+          <div class="card-header">
+            <h3 class="notification-title">{{ currentNotification.title }}</h3>
+            <el-tag
+              :type="currentNotification.status === 1 ? 'success' : (currentNotification.status === 2 ? 'info' : 'primary')"
+            >
+              {{ currentNotification.status === 1 ? '已发布' : (currentNotification.status === 2 ? '已撤回' : '草稿') }}
+            </el-tag>
+          </div>
+        </template>
+
+        <div class="notification-meta">
+          <el-tag
+            :type="currentNotification.level === 3 ? 'danger' : (currentNotification.level === 2 ? 'warning' : 'info')"
+            size="small"
+          >
+            {{ currentNotification.level === 3 ? '紧急' : (currentNotification.level === 2 ? '重要' : '普通') }}
+          </el-tag>
+          <span class="notification-type">{{ currentNotification.type?.name || '-' }}</span>
+          <span class="notification-time">创建时间：{{ currentNotification.created_at }}</span>
+        </div>
+
+        <div class="notification-content">{{ currentNotification.content }}</div>
+
+        <div class="notification-info">
+          <div>发送范围：{{ currentNotification.receiver_type === 'all' ? '全部用户' : 
+                        (currentNotification.receiver_type === 'members' ? '仅会员' : '仅管理员') }}</div>
+          <div v-if="currentNotification.expiration_time">过期时间：{{ currentNotification.expiration_time }}</div>
+        </div>
+      </el-card>
+
+      <!-- 阅读统计卡片 -->
+      <el-card v-if="currentNotification.status !== 0" class="stats-card">
+        <template #header>
+          <div class="card-header">
+            <span>阅读统计</span>
+            <el-button type="primary" link @click="refreshStats(currentNotification.id)">
+              <el-icon><Refresh /></el-icon>
+            </el-button>
+          </div>
+        </template>
+        
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-statistic title="总接收人数" :value="notificationStats.total_receivers">
+              <template #suffix>人</template>
+            </el-statistic>
+          </el-col>
+          <el-col :span="8">
+            <el-statistic title="已读人数" :value="notificationStats.read_count">
+              <template #suffix>人</template>
+            </el-statistic>
+          </el-col>
+          <el-col :span="8" v-if="currentNotification.status === 2">
+            <el-statistic title="撤回前已读" :value="notificationStats.recalled_read">
+              <template #suffix>人</template>
+            </el-statistic>
+          </el-col>
+        </el-row>
+
+        <div class="read-progress mt-4">
+          <div class="progress-label">
+            阅读率：{{ calculateReadRate(notificationStats.read_count, notificationStats.total_receivers) }}%
+          </div>
+          <el-progress 
+            :percentage="calculateReadRate(notificationStats.read_count, notificationStats.total_receivers)"
+            :status="getProgressStatus(notificationStats.read_count, notificationStats.total_receivers)"
+          />
+        </div>
+      </el-card>
     </div>
   </el-dialog>
 </template>
@@ -258,6 +312,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { notificationApi } from '@/services/notification';
 import { getMemberList } from '@/services/member';
 import { getRoleList } from '@/services/role';
+import { Refresh } from '@element-plus/icons-vue';
 
 // 数据定义
 const notifications = ref([]);
@@ -305,6 +360,39 @@ const searchForm = reactive({
   page: 1,
   page_size: 10
 });
+
+// 添加统计数据
+const notificationStats = ref({
+  totalReceivers: 0,
+  readCount: 0,
+  recalledRead: 0
+});
+
+// 计算阅读率
+const calculateReadRate = (readCount, total) => {
+  if (!total) return 0;
+  return Math.round((readCount / total) * 100);
+};
+
+// 获取进度条状态
+const getProgressStatus = (readCount, total) => {
+  const rate = calculateReadRate(readCount, total);
+  if (rate >= 80) return 'success';
+  if (rate >= 50) return 'warning';
+  return 'exception';
+};
+
+// 刷新统计数据
+const refreshStats = async (notificationId) => {
+  try {
+    const stats = await notificationApi.getNotificationStats(notificationId);
+   
+    notificationStats.value = stats;
+  } catch (error) {
+    console.error('Failed to refresh notification stats:', error);
+    ElMessage.error('获取统计数据失败');
+  }
+};
 
 // 监听日期范围变化
 watch(dateRange, (newVal) => {
@@ -430,7 +518,14 @@ const editNotification = (row) => {
 // 查看通知详情
 const viewNotification = async (row) => {
   try {
-    currentNotification.value = await notificationApi.getNotification(row.id);
+    const [notification, stats] = await Promise.all([
+      notificationApi.getNotification(row.id),
+      notificationApi.getNotificationStats(row.id)
+    ]);
+
+    console.log(stats)
+    currentNotification.value = notification;
+    notificationStats.value = stats;
     detailDialogVisible.value = true;
   } catch (error) {
     console.error('Failed to get notification details:', error);
@@ -534,17 +629,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.pagination-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
+
+
 
 .notification-detail {
   padding: 0 20px;
@@ -582,5 +669,32 @@ onMounted(() => {
 
 .notification-footer > div {
   margin-bottom: 5px;
+}
+
+.notification-detail-dialog {
+  .stats-card {
+    margin-top: 20px;
+  }
+
+  .read-progress {
+    margin-top: 20px;
+    
+    .progress-label {
+      margin-bottom: 10px;
+      color: #606266;
+    }
+  }
+
+
+}
+
+.notification-info {
+  margin-top: 15px;
+  color: #606266;
+  font-size: 14px;
+  
+  > div {
+    margin-bottom: 5px;
+  }
 }
 </style> 

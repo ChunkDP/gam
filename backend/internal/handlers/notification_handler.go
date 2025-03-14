@@ -1,35 +1,28 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 	"normaladmin/backend/internal/models"
 	"normaladmin/backend/internal/services"
 	"normaladmin/backend/pkg/utils/response"
-	"normaladmin/backend/pkg/websocket"
 	"strconv"
 	"time"
 
 	"normaladmin/backend/pkg/utils/jwt"
 
 	"github.com/gin-gonic/gin"
-	gorillaws "github.com/gorilla/websocket"
 )
 
 // NotificationHandler 通知处理器
 type NotificationHandler struct {
 	notificationService services.NotificationService
-	notificationHub     *websocket.NotificationHub
 }
 
 // NewNotificationHandler 创建通知处理器
 func NewNotificationHandler(notificationService services.NotificationService) *NotificationHandler {
-	hub := websocket.NewNotificationHub()
-	go hub.Run()
 
 	return &NotificationHandler{
 		notificationService: notificationService,
-		notificationHub:     hub,
 	}
 }
 
@@ -371,6 +364,29 @@ func (h *NotificationHandler) RecallNotification(c *gin.Context) {
 	response.Success(c, nil)
 }
 
+// GetNotificationStats 获取通知统计信息
+// @Summary 获取通知统计信息
+// @Description 获取指定ID的通知的统计信息，包括已读数量、未读数量等
+// @Tags 通知管理
+// @Accept json
+// @Produce json
+// @Param id path int true "通知ID"
+// @Success 200 {object} response.Response{data=map[string]int64}
+// @Router /api/notifications/{id}/stats [get]
+func (h *NotificationHandler) GetNotificationStats(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		response.Error(c, http.StatusBadRequest, "无效的通知ID")
+		return
+	}
+
+	stats, err := h.notificationService.GetNotificationStats(uint(id))
+	if err != nil {
+		response.Error(c, http.StatusInternalServerError, "获取通知统计信息失败: "+err.Error())
+	}
+	response.Success(c, stats)
+}
+
 // GetUserNotifications 获取用户通知列表
 // @Summary 获取用户通知列表
 // @Description 获取当前用户的通知列表，支持分页和筛选
@@ -544,57 +560,4 @@ func (h *NotificationHandler) GetUnreadNotificationCount(c *gin.Context) {
 	response.Success(c, gin.H{
 		"count": count,
 	})
-}
-
-// WebSocketHandler WebSocket连接处理
-// @Summary WebSocket连接
-// @Description 建立WebSocket连接以接收实时通知
-// @Tags 通知中心
-// @Accept json
-// @Produce json
-// @Success 101 {string} string "Switching Protocols"
-// @Router /ws/notifications [get]
-func (h *NotificationHandler) WebSocketHandler(c *gin.Context) {
-	// 获取用户信息
-	userID := jwt.GetUserID(c)
-	if userID == 0 {
-		return // GetUserID 已经处理了错误响应
-	}
-
-	userType := jwt.GetUserType(c)
-	if userType == "" {
-		return // GetUserType 已经处理了错误响应
-	}
-
-	username := jwt.GetUsername(c)
-
-	// 升级HTTP连接为WebSocket连接
-	upgrader := gorillaws.Upgrader{
-		CheckOrigin: func(r *http.Request) bool {
-			return true // 允许所有来源
-		},
-	}
-
-	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
-	if err != nil {
-		log.Printf("Failed to upgrade connection to WebSocket: %v", err)
-		response.Error(c, http.StatusInternalServerError, "WebSocket连接建立失败")
-		return
-	}
-
-	// 创建新的客户端连接
-	client := websocket.NewClient(
-		conn,
-		userID,
-		userType,
-		username,
-		h.notificationHub,
-	)
-
-	// 注册客户端
-	h.notificationHub.Register <- client
-
-	// 开始处理WebSocket消息
-	go client.ReadPump()
-	go client.WritePump()
 }

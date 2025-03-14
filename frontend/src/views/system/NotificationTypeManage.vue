@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-type-manage">
+  <div class="ma-search-box">
     <el-card>
       <template #header>
         <div class="card-header">
@@ -205,9 +205,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 </style> 

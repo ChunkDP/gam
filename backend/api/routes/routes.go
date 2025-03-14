@@ -7,9 +7,11 @@ import (
 	"normaladmin/backend/database"
 	"normaladmin/backend/internal/handlers"
 	"normaladmin/backend/internal/middleware"
+	"normaladmin/backend/internal/services"
 	"normaladmin/backend/pkg/auth"
 	"normaladmin/backend/pkg/rabbitmq"
 	"normaladmin/backend/pkg/sysconfig"
+	"normaladmin/backend/pkg/websocket"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -44,6 +46,21 @@ func SetupRoutes(r *gin.Engine, conf *config.Config, mq *rabbitmq.RabbitMQ) {
 
 		files.Static("/", sysconfig.Get("upload_path", "uploads"))
 	}
+	// 创建通知中心
+	notificationHub := websocket.NewNotificationHub()
+	go notificationHub.Run()
+	// WebSocket路由 - 不经过认证中间件
+	wsHandler := handlers.NewWebSocketHandler(notificationHub, conf.JWT.SecretKey)
+
+	r.GET("/ws/notifications", wsHandler.WebSocketHandler)
+
+	// 创建并启动通知消费者服务
+	notificationConsumer := services.NewNotificationConsumer(mq, notificationHub)
+	go func() {
+		if err := notificationConsumer.Start(); err != nil {
+			log.Printf("启动通知消费者服务失败: %v", err)
+		}
+	}()
 
 	// 后台管理需要认证的路由
 	gam := r.Group("/gam")
@@ -67,7 +84,8 @@ func SetupRoutes(r *gin.Engine, conf *config.Config, mq *rabbitmq.RabbitMQ) {
 		v1.RegisterUploadRoutes(gam)
 		v1.RegisterSystemRoutes(gam)
 		v1.RegisterSystemMonitorRoutes(gam)
-		v1.RegisterNotificationRoutes(gam, mq)
+		v1.RegisterNotificationRoutes(gam, mq, notificationHub)
+
 	}
 
 	//前台路由才涉及api/v1的版本控制

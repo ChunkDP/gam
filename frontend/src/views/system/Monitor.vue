@@ -1,6 +1,6 @@
 <template>
-  <div class="system-monitor">
-    <el-card class="monitor-card">
+  <div class="ma-search-box">
+    <el-card >
       <template #header>
         <div class="card-header">
           <span>系统实时监控</span>
@@ -136,7 +136,7 @@
         <el-table-column prop="load_average" label="负载均衡" />
       </el-table>
       
-      <div class="pagination-container">
+      <div class="pagination">
         <el-pagination
           background
           layout="total, sizes, prev, pager, next, jumper"
@@ -182,7 +182,7 @@ const getLatestData = async () => {
     const data = await systemMonitorApi.getLatestSystemMonitor();
     
     latestData.value = data;
-    console.log(latestData.value);
+   
   } catch (error) {
     ElMessage.error('获取最新监控数据失败');
     console.error(error);
@@ -389,19 +389,8 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.system-monitor {
-  padding: 20px;
-}
 
-.monitor-card, .history-card {
-  margin-bottom: 20px;
-}
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .monitor-item {
   display: flex;

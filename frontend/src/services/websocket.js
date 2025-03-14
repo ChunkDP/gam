@@ -1,7 +1,7 @@
 class WebSocketService {
   constructor() {
     this.socket = null;
-    this.isConnected = false;
+    this._isConnected = false;
     this.reconnectAttempts = 0;
     this.maxReconnectAttempts = 5;
     this.reconnectInterval = 3000;
@@ -9,25 +9,28 @@ class WebSocketService {
     this.messageQueue = [];
   }
 
+  isConnected() {
+    return this._isConnected && this.socket && this.socket.readyState === WebSocket.OPEN;
+  }
+
   connect(token) {
-    if (this.socket && this.isConnected) {
+    if (this.isConnected()) {
       return Promise.resolve();
     }
 
     return new Promise((resolve, reject) => {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
       const host = window.location.host;
-      const url = `${protocol}//${host}/gam/ws/notifications`;
-
+      const url = `${protocol}//${host}/ws/notifications?token=${encodeURIComponent(token)}`;
+     // const url = `ws://127.0.0.1:8080/ws/notifications?token=${encodeURIComponent(token)}`;
       this.socket = new WebSocket(url);
-
+      // 创建WebSocket连接，并添加token到请求头
+     
+     
       this.socket.onopen = () => {
         console.log('WebSocket connected');
-        this.isConnected = true;
+        this._isConnected = true;
         this.reconnectAttempts = 0;
-        
-        // 发送认证信息
-        this.socket.send(JSON.stringify({ type: 'auth', token }));
         
         // 发送队列中的消息
         while (this.messageQueue.length > 0) {
@@ -49,7 +52,7 @@ class WebSocketService {
 
       this.socket.onclose = (event) => {
         console.log('WebSocket disconnected:', event.code, event.reason);
-        this.isConnected = false;
+        this._isConnected = false;
         
         if (this.reconnectAttempts < this.maxReconnectAttempts) {
           this.reconnectAttempts++;
@@ -68,12 +71,12 @@ class WebSocketService {
     if (this.socket) {
       this.socket.close();
       this.socket = null;
-      this.isConnected = false;
+      this._isConnected = false;
     }
   }
 
   send(message) {
-    if (this.isConnected) {
+    if (this.isConnected()) {
       this.socket.send(JSON.stringify(message));
     } else {
       this.messageQueue.push(message);
@@ -92,6 +95,19 @@ class WebSocketService {
     if (this.listeners.has('*')) {
       const callbacks = this.listeners.get('*');
       callbacks.forEach(callback => callback(data));
+    }
+
+    if (type === 'notification') {
+      switch (data.action) {
+        case 'recall':
+          // 触发撤回事件
+          this.emit('notification-recall', {
+            id: data.id,
+            message: data.message
+          });
+          break;
+        // ... 其他情况处理
+      }
     }
   }
 
@@ -121,6 +137,18 @@ class WebSocketService {
     if (index !== -1) {
       callbacks.splice(index, 1);
     }
+  }
+
+  reconnect() {
+    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        console.log(`Attempting to reconnect (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+        return this.connect(token);
+      }
+    }
+    return Promise.reject(new Error('Max reconnection attempts reached'));
   }
 }
 

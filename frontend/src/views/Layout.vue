@@ -6,7 +6,7 @@
       <div class="header">
         <div class="logo">
           <el-image :src="LogoJpg" />
-          <span>Go-admin-manage</span>
+          <span @click="goToMonitorPage">Go-admin-manage</span>
          
           
         </div>
@@ -35,7 +35,7 @@
 
     <el-container>
       <el-aside :class="isCollapsed ? 'aside64' : 'aside250'">
-        <el-menu :default-active="activeIndex" class="el-menu-vertical-demo dark:text-slate-300 overflow-hidden"
+        <el-menu :default-active="navigationStore.activeIndex" class="el-menu-vertical-demo dark:text-slate-300 overflow-hidden"
           :unique-opened="true" style="border: none;" active-text-color="#fff" :collapse="isCollapsed">
           <template v-for="item in menuData" :key="item.name">
 
@@ -43,7 +43,7 @@
               placement="right">
 
               <el-menu-item v-if="!(item.children?.length)" :index="item.name"
-                @click="onMenuItemClick(item.title, item.name)" :class="activeIndex == item.name ? 'singlemenu' : ''">
+                @click="onMenuItemClick(item.title, item.name)" :class="navigationStore.activeIndex == item.name ? 'singlemenu' : ''">
                 <el-icon>
                   <component :is="item.icon" />
                 </el-icon>
@@ -70,13 +70,13 @@
               trigger="click" :offset=5 transition="el-slide-in-right" :show-arrow="false" :hide-after=0
               popper-class="popperclass">
               <template #reference>
-                <el-menu-item :index="item.name" :class="ParentactiveIndex == item.name ? 'parentmenu' : ''">
+                <el-menu-item :index="item.name" :class="navigationStore.parentActiveIndex == item.name ? 'parentmenu' : ''">
                   <el-icon>
                     <component :is="item.icon" />
                   </el-icon>
                 </el-menu-item>
               </template>
-              <el-menu :default-active="activeIndex" class="el-menu-vertical-demo dark:text-slate-300 overflow-hidden"
+              <el-menu :default-active="navigationStore.activeIndex" class="el-menu-vertical-demo dark:text-slate-300 overflow-hidden"
                 :unique-opened="true" style="border: none;" active-text-color="#fff">
                 <template v-for="child in item.children" :key="child.name">
                   <el-menu-item :index="child.name"
@@ -92,7 +92,7 @@
 
 
 
-            <el-sub-menu v-else :index="item.name" :class="ParentactiveIndex == item.name ? 'parentmenu' : ''">
+            <el-sub-menu v-else :index="item.name" :class="navigationStore.parentActiveIndex == item.name ? 'parentmenu' : ''">
               <template #title>
                 <el-icon>
                   <component :is="item.icon" />
@@ -128,7 +128,7 @@
         </span>
       </el-aside>
       <el-main style="padding: 0;">
-        <Tabs :tabs="tabs" :active-tab="activeIndex" @close-tab="closeTab" @click-tab="clickTab" />
+        <Tabs :tabs="navigationStore.tabs" :active-tab="navigationStore.activeIndex" @close-tab="HandleCloseTab" @click-tab="HandleClickTab" />
         <div class="router-view-container">
           <router-view></router-view>
         </div>
@@ -137,8 +137,8 @@
   </el-container>
 </template>
 
-<script>
-import { defineComponent, ref, watch, onMounted, onBeforeUnmount, computed } from 'vue';
+<script setup>
+import { ref,  onMounted, onBeforeUnmount, computed,watch,watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import Tabs from '../components/Tabs.vue';
 import AvatarJpg from '@/assets/avatar.png';
@@ -146,49 +146,32 @@ import LogoJpg from '@/assets/logo.png';
 import NotificationCenter from '../components/NotificationCenter.vue'
 import { useUserPermissionsStore } from '../stores/userPermissions';
 
+import { useNavigationStore } from '@/stores/navigation';
 
-export default defineComponent({
-  components: {
-    Tabs,
-    NotificationCenter
-  },
-  setup() {
+// 使用 navigation store
+const navigationStore = useNavigationStore();
 
-    // 加载菜单数据
+
+
 
     const userPermissions = useUserPermissionsStore();
 
     const menuData = computed(() => userPermissions.getRoleMenu);
 
-    const activeIndex = ref();
-    const ParentactiveIndex = ref();
 
     const router = useRouter();
     const isCollapsed = ref(false);
-    const savedTabs = JSON.parse(localStorage.getItem('tabs')) || [];
-    const tabs = ref(savedTabs);
 
 
-    activeIndex.value = localStorage.getItem('activeIntx')
-
-    ParentactiveIndex.value = localStorage.getItem('ParentactiveIndex')
-
-
-    const setParentactiveIndex = (parentName) => {
-      ParentactiveIndex.value = parentName;
-      localStorage.setItem('ParentactiveIndex', parentName);
-    }
-    const saveActiveIndex = (componentName) => {
-      activeIndex.value = componentName;
-      localStorage.setItem('activeIntx', componentName);
-    }
-    if (tabs.value.length === 0) {
-      tabs.value.push({ name: '首页', component: 'Home' });
-
-      saveActiveIndex('Home');
-      router.push('/layout/home');
-    }
-
+    const goToMonitorPage = () => {
+  
+      navigationStore.navigateToPage({
+    title: '系统监控',
+    componentName: 'SystemMonitor',
+    parentName: 'System'
+  });
+  
+};
     //console.log('tabs', tabs.value);
     const logout = () => {
     
@@ -207,62 +190,20 @@ export default defineComponent({
      */
     const onMenuItemClick = (tabName, componentName, parentName) => {
 
-
-      if (!tabs.value.some(tab => tab.name === tabName)) {
-        tabs.value.push({ name: tabName, component: componentName, parent: parentName });
-      }
-      
-      saveActiveIndex(componentName);
-
-
-      setParentactiveIndex(parentName)
-      localStorage.setItem('tabs', JSON.stringify(tabs.value));
-      router.push({ name: componentName });
+      navigationStore.navigateToPage({
+    title: tabName,
+    componentName: componentName,
+    parentName: parentName
+  });
     };
-    const clickTab = (tabName) => {
-      const index = tabs.value.findIndex(tab => tab.component == tabName);
-    
-      setParentactiveIndex(tabs.value[index].parent)
-      saveActiveIndex(tabName);
+    const HandleClickTab = (tabName) => {
+      navigationStore.clickTab(tabName);
 
     };
-    const closeTab = (tabName, selectIndex) => {
-
-      tabs.value = tabs.value.filter(tab => tab.component !== tabName);
-
-      //如果是单纯点击关闭按钮，首先将其设置显示最后一个tab页面
-      if (!selectIndex) {
-        selectIndex=tabs.value.length-1
-
-      } 
-        //如果存在当前标签页，则将当前标签页的索引设置为selectIndex
-        const tabExists = tabs.value.some(tab=>tab.component === activeIndex.value)
-        if(tabExists){
-          selectIndex=tabs.value.findIndex(tab=>tab.component === activeIndex.value)
-        }
-        //不存在的话，根据当前索引设置selectIndex
-        if (tabs.value.length > 0) {
-
-
-          const lastTab = tabs.value[selectIndex];
-
-
-          saveActiveIndex(lastTab.component);
-          setParentactiveIndex(lastTab.parentName)
-
-          router.push({ name: lastTab.component });
-        } else {
-          tabs.value.push({ name: '首页', component: 'Home' });
-          saveActiveIndex('Home');
-          setParentactiveIndex('')
-          router.push('/layout/home');
-        }
-      
-
-
-
-      localStorage.setItem('tabs', JSON.stringify(tabs.value));
-
+    const HandleCloseTab = (tabName, selectIndex) => {
+       
+      navigationStore.closeTab(tabName, selectIndex);
+        
     };
     const toggleAside = () => {
       isCollapsed.value = !isCollapsed.value;
@@ -295,23 +236,7 @@ export default defineComponent({
       window.removeEventListener('resize', handleResize);
     });
 
-    return {
-      tabs,
-      isCollapsed,
-      toggleAside,
-      AvatarJpg,
-      LogoJpg,
-      onMenuItemClick,
-      closeTab,
-      clickTab,
-      logout,
-      menuData,
-      activeIndex,
-      ParentactiveIndex,
 
-    };
-  }
-});
 </script>
 
 <style>

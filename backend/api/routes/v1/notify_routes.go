@@ -10,12 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterNotificationRoutes(r *gin.RouterGroup, rabbitmq *rabbitmq.RabbitMQ) {
+func RegisterNotificationRoutes(r *gin.RouterGroup, rabbitmq *rabbitmq.RabbitMQ, notificationHub *websocket.NotificationHub) {
 
 	db := database.GetDB()
-	// 创建通知中心
-	notificationHub := websocket.NewNotificationHub()
-	go notificationHub.Run()
 
 	notificationService := services.NewNotificationService(db, rabbitmq, notificationHub)
 	notificationHandler := handlers.NewNotificationHandler(notificationService)
@@ -40,6 +37,7 @@ func RegisterNotificationRoutes(r *gin.RouterGroup, rabbitmq *rabbitmq.RabbitMQ)
 		notificationGroup.DELETE("/:id", notificationHandler.DeleteNotification)
 		notificationGroup.POST("/:id/publish", notificationHandler.PublishNotification)
 		notificationGroup.POST("/:id/recall", notificationHandler.RecallNotification)
+		notificationGroup.GET("/:id/stats", notificationHandler.GetNotificationStats)
 	}
 
 	// 用户通知
@@ -52,6 +50,4 @@ func RegisterNotificationRoutes(r *gin.RouterGroup, rabbitmq *rabbitmq.RabbitMQ)
 		userNotificationGroup.GET("/unread-count", notificationHandler.GetUnreadNotificationCount)
 	}
 
-	// WebSocket
-	r.GET("/ws/notifications", notificationHandler.WebSocketHandler)
 }

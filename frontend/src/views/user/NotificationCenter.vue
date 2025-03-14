@@ -1,5 +1,5 @@
 <template>
-  <div class="notification-center ma-search-box">
+  <div class="ma-search-box">
     <el-card>
       <template #header>
         <div class="card-header">
@@ -12,7 +12,7 @@
       </template>
 
       <!-- 搜索表单 -->
-      <el-form :inline="true" :model="queryParams" class="search-form">
+      <el-form :inline="true" :model="queryParams" >
         <el-form-item label="类型">
           <el-select v-model="queryParams.type_id" placeholder="请选择通知类型" clearable class="adaptive-select">
             <el-option
@@ -29,6 +29,14 @@
             <el-option label="已读" :value="true" />
           </el-select>
         </el-form-item>
+        <el-form-item label="撤回状态">
+          <el-select v-model="queryParams.show_recalled" placeholder="请选择状态" clearable class="adaptive-select">
+            <el-option label="未撤回" :value="false" />
+            <el-option label="已撤回" :value="true" />
+          </el-select>
+        </el-form-item>
+
+        
         <el-form-item label="级别">
           <el-select v-model="queryParams.level" placeholder="请选择级别" clearable class="adaptive-select">
             <el-option label="普通" :value="1" />
@@ -43,7 +51,7 @@
       </el-form>
 
       <!-- 通知列表 -->
-      <el-table v-loading="loading" :data="notifications">
+      <el-table v-loading="loading" :data="notifications" border>
         <el-table-column width="50">
           <template #default="{ row }" >
             <el-badge :is-dot="!row.is_read" type="danger" >
@@ -51,8 +59,15 @@
             </el-badge>
           </template>
         </el-table-column>
-        <el-table-column label="标题" prop="notification.title" />
-        <el-table-column label="类型" prop="notification.type.name" />
+        <el-table-column label="标题" prop="notification.title" >
+          <template #default="{ row }">
+          <span :class="{ 'recalled': row.is_recalled }">
+            {{ row.notification.title }}
+            <el-tag v-if="row.is_recalled" type="info" size="small">已撤回</el-tag>
+          </span>
+        </template>
+        </el-table-column>
+        <el-table-column label="类型" prop="notification.type.name" width="100" />
         <el-table-column label="级别" width="100">
           <template #default="{ row }">
             <el-tag :type="getLevelType(row.notification.level)">
@@ -60,12 +75,16 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="发送时间" prop="created_at" width="180" />
+        <el-table-column label="发送时间" prop="created_at" width="220" />
         <el-table-column label="状态" width="100">
           <template #default="{ row }">
             <el-tag :type="row.is_read ? 'info' : 'danger'">
               {{ row.is_read ? '已读' : '未读' }}
             </el-tag>
+            <el-tooltip v-if="row.is_recalled && row.read_time && row.recall_time" 
+                     :content="getReadStatus(row)" placement="top">
+            <el-icon class="ml-2"><InfoFilled /></el-icon>
+          </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="150">
@@ -85,7 +104,9 @@
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination
+      <div class="pagination">
+      <el-pagination 
+      background
         v-model:current-page="queryParams.page"
         v-model:page-size="queryParams.page_size"
         :total="total"
@@ -94,6 +115,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
+      </div>
     </el-card>
 
     <!-- 查看通知对话框 -->
@@ -109,7 +131,7 @@
         <el-descriptions-item label="内容">{{ currentNotification?.notification?.content }}</el-descriptions-item>
       </el-descriptions>
       <template #footer>
-        <el-button @click="viewDialogVisible = false">关闭</el-button>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
         <el-button
           v-if="!currentNotification?.is_read"
           type="primary"
@@ -126,13 +148,21 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { Bell } from '@element-plus/icons-vue';
 import { notificationApi } from '@/services/notification';
 import websocketService from '@/services/websocket';
-
+const getReadStatus = (notification) => {
+ 
+  const readTime = new Date(notification.read_time);
+  const recallTime = new Date(notification.recall_time);
+  return readTime < recallTime ? 
+    '撤回前已读' : 
+    '撤回后已读';
+};
 // 查询参数
 const queryParams = ref({
   page: 1,
   page_size: 10,
   type_id: '',
   is_read: '',
+  show_recalled:'',
   level: '',
   user_type: 'admins' // 从用户store中获取用户类型
 });
@@ -187,6 +217,16 @@ const loadNotificationTypes = async () => {
 // 获取通知列表
 const fetchNotifications = async () => {
   try {
+   
+      // 只有当明确选择了已读/未读状态时才传递参数
+  if (queryParams.value.is_read === '') {
+    delete queryParams.value.is_read;
+  }
+  
+  if (queryParams.value.show_recalled === '') {
+    delete queryParams.value.show_recalled;
+  }
+
     loading.value = true;
     const data = await notificationApi.getUserNotifications(queryParams.value);
  
@@ -234,11 +274,14 @@ const viewNotification = (row) => {
   detailDialogVisible.value = true;
   
   // 如果是未读通知，标记为已读
-  if (!row.is_read) {
-    markAsRead(row, false);
-  }
+  // if (!row.is_read) {
+  //   markAsRead(row, false);
+  // }
 };
-
+const markAsReadAndClose = () => {
+  markAsRead(currentNotification.value, false);
+  detailDialogVisible.value = false;
+};
 // 标记通知为已读
 const markAsRead = async (row, showMessage = true) => {
   try {
@@ -309,6 +352,26 @@ const handleNewNotification = (data) => {
   fetchNotifications();
 };
 
+// 监听通知撤回
+onMounted(() => {
+  websocketService.on('notification-recall', (data) => {
+    // 从列表中移除已撤回的通知
+    notifications.value = notifications.value.filter(
+      item => item.notification.id !== data.id
+    );
+    
+    // 显示撤回提示
+    ElMessage({
+      type: 'info',
+      message: data.message,
+      duration: 3000
+    });
+    
+    // 重新获取未读数量
+    fetchUnreadCount();
+  });
+});
+
 onMounted(async () => {
   loadNotificationTypes();
   fetchNotifications();
@@ -368,7 +431,7 @@ const handleQuery = () => {
 // 处理重置查询
 const resetQuery = () => {
   Object.keys(queryParams.value).forEach(key => {
-    if (key !== 'page' && key !== 'pageSize') {
+    if (key !== 'page' && key !== 'page_size') {
       queryParams.value[key] = '';
     }
   });
@@ -378,19 +441,8 @@ const resetQuery = () => {
 </script>
 
 <style scoped>
-.notification-center {
-  padding: 20px;
-}
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.search-form {
-  margin-bottom: 20px;
-}
 /* 强制表格单元格内容可见 */
 :deep(.el-table .cell) {
   overflow: visible !important;

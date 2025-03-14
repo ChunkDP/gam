@@ -1,7 +1,16 @@
 <template>
-  <div class="role-container">
+  <div class="ma-search-box">
     <!-- 搜索表单 -->
-    <div class="ma-search-box">
+
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>角色管理</span>
+          <el-button type="primary" @click="handleAdd">新增角色</el-button>
+        </div>
+      </template>
+
+     
       <el-form ref="searchForm" :inline="true" :model="searchInfo">
         <el-form-item label="角色名称">
           <el-input v-model="searchInfo.name" placeholder="角色名称" />
@@ -17,13 +26,9 @@
           <el-button @click="resetSearch">重置</el-button>
         </el-form-item>
       </el-form>
-    </div>
+  
 
-    <!-- 表格 -->
-    <div class="ma-table-box">
-      <div class="ma-btn-list">
-        <el-button type="primary" @click="handleAdd">新增角色</el-button>
-      </div>
+
 
       <el-table 
         :data="roleList" 
@@ -104,7 +109,7 @@
       </el-table>
 
       <!-- 添加分页组件 -->
-      <div class="pagination-container">
+      <div class="pagination">
         <el-pagination background 
           v-model:current-page="pagination.page"
           v-model:page-size="pagination.pageSize"
@@ -112,12 +117,9 @@
           layout="total, prev, pager, next, jumper"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange">
-       
-  </el-pagination>
-        
-      </div>
-    </div>
-
+         </el-pagination>
+          </div>
+</el-card>
     <!-- 角色表单对话框 -->
     <el-dialog
       :title="dialogTitle"
@@ -514,16 +516,11 @@ const handleCurrentChange = (val) => {
 </script>
 
 <style scoped>
-.role-container {
-  padding: 20px;
-}
 
-.ma-search-box {
-  margin-bottom: 20px;
-}
-
-.ma-btn-list {
-  margin-bottom: 20px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sort-cell {

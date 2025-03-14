@@ -41,6 +41,8 @@ type NotificationReceiver struct {
 	UserType       string       `json:"user_type" gorm:"type:varchar(20);not null;comment:用户类型(admin/member)"`
 	UserName       string       `json:"user_name" gorm:"size:50;comment:用户名称"`
 	IsRead         bool         `json:"is_read" gorm:"default:false;comment:是否已读"`
+	IsRecalled     bool         `json:"is_recalled" gorm:"default:false;comment:是否撤回"`
+	RecallTime     *time.Time   `json:"recall_time" gorm:"comment:撤回时间"` // 撤回时间
 	ReadTime       *time.Time   `json:"read_time" gorm:"comment:阅读时间"`
 	IsDeleted      bool         `json:"is_deleted" gorm:"default:false;comment:是否删除"`
 	CreatedAt      time.Time    `json:"created_at"`
@@ -63,13 +65,14 @@ type NotificationQuery struct {
 
 // UserNotificationQuery 用户通知查询参数
 type UserNotificationQuery struct {
-	IsRead    *bool  `form:"is_read"`
-	TypeID    uint   `form:"type_id"`
-	Level     int    `form:"level"`
-	StartTime string `form:"start_time"`
-	EndTime   string `form:"end_time"`
-	Page      int    `form:"page" binding:"required,min=1"`
-	PageSize  int    `form:"page_size" binding:"required,min=5,max=100"`
+	ShowRecalled *bool  `form:"show_recalled"`
+	IsRead       *bool  `form:"is_read"`
+	TypeID       uint   `form:"type_id"`
+	Level        int    `form:"level"`
+	StartTime    string `form:"start_time"`
+	EndTime      string `form:"end_time"`
+	Page         int    `form:"page" binding:"required,min=1"`
+	PageSize     int    `form:"page_size" binding:"required,min=5,max=100"`
 }
 
 // ReceiverQuery 接收者查询参数

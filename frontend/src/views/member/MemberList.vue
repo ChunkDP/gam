@@ -1,7 +1,17 @@
 <template>
   <!-- 查询表单 -->
   <div class="ma-search-box">
-  <el-form ref="searchForm"  :model="searchInfo" :inline="true" >
+  
+  
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>会员管理</span>
+          <el-button type="primary" @click="handleAdd">添加会员</el-button>
+        </div>
+      </template>
+      
+      <el-form ref="searchForm"  :model="searchInfo" :inline="true" >
     <el-form-item label="用户名">
       <el-input v-model="searchInfo.username" placeholder="请输入用户名" />
     </el-form-item>
@@ -14,11 +24,8 @@
       <el-button @click="handleReset">重置</el-button>
     </el-form-item>
   </el-form>
-</div>
-  <!-- 操作按钮 -->
-  <div class="ma-btn-list">
-    <el-button type="primary" @click="handleAdd">添加会员</el-button>
-  </div>
+
+
 
   <!-- 数据表格 -->
   <el-table
@@ -46,7 +53,7 @@
   </el-table>
 
   <!-- 分页组件 -->
-  <div class="ma-pagination">
+  <div class="pagination">
     <el-pagination
       background
       layout="total, prev, pager, next"
@@ -56,7 +63,8 @@
       @current-change="handleCurrentChange"
     />
   </div>
-
+</el-card>
+</div>
   <!-- 对话框 -->
   <el-dialog
     :title="dialogTitle"
@@ -276,21 +284,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.member-list {
-  padding: 20px;
-}
 
-.ma-search-box {
-  margin-bottom: 20px;
-}
 
-.ma-btn-list {
-  margin-bottom: 20px;
-}
 
-.ma-pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
+
+
 </style>

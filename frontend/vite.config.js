@@ -14,9 +14,17 @@ export default defineConfig({
     port: 3000,
     open: true,
     proxy: {
+      
+      '/ws/notifications': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        ws: true  // 启用 websocket 代理
+        //rewrite: (path) => path.replace(/^\/api/, '')
+      },
       '/gam': {
         target: 'http://localhost:8080',
         changeOrigin: true,
+        ws: true  // 启用 websocket 代理
         //rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/uploads': {

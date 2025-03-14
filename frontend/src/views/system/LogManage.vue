@@ -1,6 +1,12 @@
 <template>
-  <div class="log-manage ma-search-box">
+  <div class="ma-search-box">
     <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>日志管理</span>
+         
+        </div>
+      </template>
       <!-- 搜索栏 -->
       <el-form :inline="true" :model="queryParams" class="search-form">
         <el-form-item label="用户名">
@@ -54,6 +60,7 @@
       <!-- 分页 -->
       <div class="pagination">
         <el-pagination
+        background
           v-model:current-page="queryParams.page"
           v-model:page-size="queryParams.pageSize"
           :page-sizes="[10, 20, 50, 100]"
@@ -90,7 +97,7 @@
 import { ref, reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { DateModelType } from 'element-plus'
-import logService from '@/services/log'
+import {getLogList,deleteLogs} from '@/services/log'
 
 // 查询参数
 const queryParams = reactive({
@@ -116,7 +123,7 @@ const getList = async () => {
       start_time: dateRange.value?.[0],
       end_time: dateRange.value?.[1]
     }
-    const data = await logService.getLogList(params)
+    const data = await getLogList(params)
    
     logList.value = data.list
     total.value = data.total
@@ -163,7 +170,7 @@ const handleDelete = () => {
     try {
       const thirtyDaysAgo = new Date()
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-      await logService.deleteLogs({ before: thirtyDaysAgo.toISOString() })
+      await deleteLogs({ before: thirtyDaysAgo.toISOString() })
       ElMessage.success('清理成功')
       getList()
     } catch (error) {
@@ -193,18 +200,7 @@ getList()
 </script>
 
 <style scoped>
-.log-manage {
-  padding: 20px;
-}
 
-.search-form {
-  margin-bottom: 20px;
-}
-
-.pagination {
-  margin-top: 20px;
-  text-align: right;
-}
 
 pre {
   background-color: #f5f7fa;

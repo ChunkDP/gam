@@ -62,7 +62,10 @@ export const notificationApi = {
     return apiService.post(`/notifications/${id}/recall`)
       .then(res => res.data.data);
   },
-  
+  getNotificationStats:(id) => {
+    return apiService.get(`/notifications/${id}/stats`)
+      .then(res => res.data.data);
+  },
   // 用户通知
   getUserNotifications: (params) => {
     return apiService.get('/user/notifications', { params })

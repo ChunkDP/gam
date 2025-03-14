@@ -1,8 +1,15 @@
 <template>
-  <div class="menu-container">
-    <div class="ma-btn-list">
-      <el-button type="primary" @click="handleAdd">新增菜单</el-button>
-    </div>
+   <div class="ma-search-box">
+    <!-- 搜索表单 -->
+
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>菜单管理</span>
+          <el-button type="primary" @click="handleAdd">新增菜单</el-button>
+        </div>
+      </template>
+
 
     <el-table
       :data="menuList"
@@ -48,7 +55,8 @@
         </template>
       </el-table-column>
     </el-table>
-
+    </el-card>
+  </div>
     <!-- 菜单表单对话框 -->
     <el-dialog
       :title="dialogTitle"
@@ -169,7 +177,7 @@
         </span>
       </template>
     </el-dialog>
-  </div>
+  
 </template>
 
 <script setup>
@@ -377,13 +385,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.menu-container {
-  padding: 20px;
-}
 
-.ma-btn-list {
-  margin-bottom: 20px;
-}
+
 
 .icon-list {
   display: grid;

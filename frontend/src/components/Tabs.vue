@@ -37,12 +37,11 @@
 </ul>
 </template>
 
-<script>
+<script setup>
 import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  props: {
+ const props= defineProps({
     tabs: {
       type: Array,
       required: true
@@ -51,9 +50,15 @@ export default defineComponent({
       type: String,
       required: true
     }
-  },
-  emits: ['close-tab', 'click-tab'],
-  setup(props, { emit }) {
+  
+  }) 
+// 定义事件
+const emit = defineEmits([
+  'close-tab',  // 关闭标签页
+  'click-tab',  // 点击标签页
+  
+])
+ 
     const activeTab = ref(props.activeTab);
   
     const tabs = ref(props.tabs);
@@ -71,6 +76,8 @@ const contextMenus = [
   { text: '关闭右侧', handler: () => closeMultipleTabs('right') },
   { text: '关闭其他', handler: () => closeMultipleTabs('other') }
 ];
+
+// 监听 props 变化
 watch(
       [() => props.activeTab,() => props.tabs],
       ([newActiveTab,newTabs]) => {
@@ -79,7 +86,7 @@ watch(
         tabs.value =newTabs
       },
      
-      { immediate: true }
+      { deep:true,immediate: true }
     );
     const handleTagClick = (tabName) => {
   
@@ -171,19 +178,9 @@ const handleClickOutside = (event) => {
     onUnmounted(() => {
       document.removeEventListener('click', handleClickOutside);
     });
-    return {showContextMenu,
-      contextMenuVisible,
-      contextMenus,
-      hideContextMenu,
-      closeMultipleTabs,
-      top,
-      left,
-      activeTab,
-      handleTagClick,
-      handleClose
-    };
-  }
-});
+
+ 
+
 </script>
 
 <style scoped>
