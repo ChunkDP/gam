@@ -73,6 +73,7 @@ func (h *SystemMonitorHandler) GetSystemMonitors(c *gin.Context) {
 func (h *SystemMonitorHandler) GetLatestSystemMonitor(c *gin.Context) {
 	monitor, err := h.systemMonitorService.GetLatestSystemMonitor()
 	if err != nil {
+
 		response.Error(c, http.StatusInternalServerError, "获取最新系统监控信息失败: "+err.Error())
 		return
 	}

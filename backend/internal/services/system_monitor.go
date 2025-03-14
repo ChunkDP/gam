@@ -134,7 +134,7 @@ func (s *systemMonitorService) GetSystemMonitors(query *models.SystemMonitorQuer
 func (s *systemMonitorService) GetLatestSystemMonitor() (*models.SystemMonitor, error) {
 	var monitor models.SystemMonitor
 	err := s.db.Order("created_at DESC").First(&monitor).Error
-	if err != nil {
+	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
 	return &monitor, nil

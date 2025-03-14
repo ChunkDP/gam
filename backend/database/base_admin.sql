@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80019
 File Encoding         : 65001
 
-Date: 2025-03-14 09:57:08
+Date: 2025-03-14 19:43:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -350,6 +350,11 @@ CREATE TABLE `migration_records` (
   UNIQUE KEY `idx_migration_records_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
+-- ----------------------------
+-- Records of migration_records
+-- ----------------------------
+INSERT INTO `migration_records` VALUES ('1', '001_create_base_tables', '1740711860');
+INSERT INTO `migration_records` VALUES ('2', '002_init_super_admin_permissions', '1740712700');
 
 -- ----------------------------
 -- Table structure for `notifications`
@@ -375,8 +380,11 @@ CREATE TABLE `notifications` (
   KEY `idx_status` (`status`),
   KEY `idx_publish_time` (`publish_time`),
   CONSTRAINT `fk_notification_type` FOREIGN KEY (`type_id`) REFERENCES `notification_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知表';
 
+-- ----------------------------
+-- Records of notifications
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `notification_receivers`
@@ -393,14 +401,19 @@ CREATE TABLE `notification_receivers` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_recalled` tinyint(1) DEFAULT '0',
+  `recall_time` datetime DEFAULT NULL COMMENT '撤回时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_notification_user` (`notification_id`,`user_id`,`user_type`),
   KEY `idx_user_id_type` (`user_id`,`user_type`),
   KEY `idx_is_read` (`is_read`),
   KEY `idx_is_deleted` (`is_deleted`),
   CONSTRAINT `fk_notification_receiver` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知接收记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='通知接收记录表';
 
+-- ----------------------------
+-- Records of notification_receivers
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `notification_types`
@@ -540,7 +553,11 @@ CREATE TABLE `system_logs` (
   KEY `idx_user_id` (`user_id`),
   KEY `idx_created_at` (`created_at`),
   KEY `idx_module` (`module`)
-) ENGINE=InnoDB AUTO_INCREMENT=669 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=2796 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统日志表';
+
+-- ----------------------------
+-- Records of system_logs
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `system_monitors`
@@ -557,7 +574,12 @@ CREATE TABLE `system_monitors` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_created_at` (`created_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统监控表';
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统监控表';
+
+-- ----------------------------
+-- Records of system_monitors
+-- ----------------------------
+INSERT INTO `system_monitors` VALUES ('166', '10.94', '37.00', '48.00', '接收: 2.83 TB/s, 发送: 3.00 TB/s', '249', 'Windows系统不支持负载均衡指标', '2025-03-14 19:42:24');
 
 -- ----------------------------
 -- Table structure for `system_notices`
@@ -607,3 +629,9 @@ CREATE TABLE `upload_files` (
   KEY `idx_upload_files_file_ext` (`file_ext`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='上传文件记录表';
 
+-- ----------------------------
+-- Records of upload_files
+-- ----------------------------
+INSERT INTO `upload_files` VALUES ('1', '2025-03-11 10:38:23', '2025-03-11 10:38:23', null, '3月3日-封面.jpg', '2025/03/11/file/1741660702814953300.jpg', 'file', '206062', '.jpg', '/uploads/2025/03/11/file/1741660702814953300.jpg');
+INSERT INTO `upload_files` VALUES ('2', '2025-03-11 10:42:32', '2025-03-11 10:42:32', null, '3月3日-封面.jpg', '2025/03/11/file/1741660951650549600.jpg', 'file', '206062', '.jpg', '/uploads/2025/03/11/file/1741660951650549600.jpg');
+INSERT INTO `upload_files` VALUES ('3', '2025-03-11 10:49:43', '2025-03-11 10:49:43', null, '3月3日-封面.jpg', '2025/03/11/file/1741661383473619300.jpg', 'file', '206062', '.jpg', '/uploads/2025/03/11/file/1741661383473619300.jpg');

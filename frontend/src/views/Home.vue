@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+
     <!-- 顶部数据卡片 -->
     <el-row :gutter="20">
       <el-col :span="6" v-for="(item, index) in statisticsData" :key="index">
@@ -292,7 +293,8 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss">
+
 .home-container {
   padding: 20px;
 }
