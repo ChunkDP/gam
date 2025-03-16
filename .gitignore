@@ -5,3 +5,4 @@ docs/
 .vscode/
 .cursor/
 
+backend/cmd/app/logs/app.dev.log
