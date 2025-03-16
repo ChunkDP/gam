@@ -1,6 +1,5 @@
 backend/cmd/app/uploads/
 backend/cmd/app/logs/
-docs/
 .idea/
 .vscode/
 .cursor/
