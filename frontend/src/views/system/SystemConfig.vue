@@ -483,7 +483,8 @@ onMounted(() => {
 .config-container {
   padding: 20px;
   height: 100%;
-  background: #fff;
+ 
+  background-color: var(--el-bg-color-overlay);
 }
 
 .config-sidebar {
@@ -492,11 +493,12 @@ onMounted(() => {
   height: 100%;
 }
 
-.config-menu {
-  border-right: none;
-}
+
 .config-menu li.is-active{
   color: #fff;
+}
+.config-menu.el-menu{
+  background-color: var(--el-bg-color-overlay);
 }
 .config-content {
   min-height: 500px;
@@ -516,7 +518,7 @@ onMounted(() => {
 
 .group-header .description {
   margin: 10px 0 0;
-  color: #666;
+  color: var(--el-text-color-regular);
 }
 
 .config-form {

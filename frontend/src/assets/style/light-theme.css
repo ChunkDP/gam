@@ -1,0 +1,136 @@
+/* 浅色主题样式 */
+
+/* 基础变量覆盖 */
+html.light {
+  --el-bg-color: #ffffff;
+  --el-bg-color-overlay: #ffffff;
+  --el-text-color-primary: #303133;
+  --el-text-color-regular: #606266;
+  --el-text-color-secondary: #909399;
+  --el-border-color-light: #e4e7ed;
+  --el-border-color: #dcdfe6;
+  --el-border-color-darker: #cdd0d6;
+  --el-fill-color: #f0f2f5;
+  --el-fill-color-light: #f5f7fa;
+  --el-fill-color-blank: #ffffff;
+  --el-mask-color: rgba(255, 255, 255, 0.8);
+  --el-mask-color-extra-light: rgba(255, 255, 255, 0.3);
+}
+
+/* 布局组件 */
+html.light .layout {
+  background-color: #f0f2f5;
+}
+
+/* 头部导航栏 */
+html.light .header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e4e7ed;
+  color: #303133;
+}
+
+html.light .logo h1 {
+  color: #303133;
+}
+
+html.light .user-info span {
+  color: #303133;
+}
+
+/* 侧边栏 */
+html.light .sidebar {
+  background-color: #ffffff;
+  border-right: 1px solid #e4e7ed;
+}
+
+html.light .collapse-btn {
+  background-color: #ffffff;
+  color: #606266;
+  border-top: 1px solid #e4e7ed;
+}
+
+html.light .collapse-btn:hover {
+  color: var(--el-color-primary);
+}
+
+/* 标签页导航 */
+html.light .tabs-bar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e4e7ed;
+  padding-top:0px;
+}
+
+html.light .el-tabs__item {
+  color: #606266 !important;
+}
+
+html.light .el-tabs__item.is-active {
+  color: var(--el-color-primary) !important;
+}
+
+html.light .el-tabs__nav-wrap::after {
+  background-color: #e4e7ed;
+}
+
+html.light .el-tabs__active-bar {
+  background-color: var(--el-color-primary);
+}
+
+html.light .el-tabs__item:hover {
+  color: var(--el-color-primary) !important;
+}
+
+html.light .el-tabs--card > .el-tabs__header .el-tabs__item {
+  margin-right: 10px;
+  background-color: var(--el-bg-color);
+  border:1px solid var(--el-border-color-light);
+  transition: all 0.3s;
+}
+
+html.light .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+  background-color: var(--el-bg-color-overlay);
+  border-color: var(--el-border-color-primary);
+}
+
+/* 恢复标签页导航的下边框 */
+html.light .el-tabs--card > .el-tabs__header .el-tabs__nav {
+  border: none;
+}
+
+/* 移除标签页头部的下边框 */
+html.light .el-tabs--card > .el-tabs__header {
+  border-bottom: none;
+}
+
+/* 主内容区域 */
+html.light .content {
+  background-color: #f0f2f5;
+  color: #303133;
+}
+
+/* 卡片组件 */
+html.light .el-card {
+  background-color: #ffffff;
+  border-color: #e4e7ed;
+  color: #303133;
+}
+
+html.light .el-card__header {
+  border-bottom-color: #e4e7ed;
+}
+
+/* 右键菜单 */
+html.light .contextmenu {
+  background-color: #ffffff;
+  border-color: #e4e7ed;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+html.light .contextmenu li {
+  color: #303133;
+}
+
+html.light .contextmenu li:hover {
+  background-color: #f5f7fa;
+}
+

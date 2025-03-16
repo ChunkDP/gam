@@ -1,44 +1,51 @@
 
 @import "tailwindcss";
 
+/* 全局基础样式 */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+/* 添加自定义菜单样式 */
+html.light .el-menu-item.is-active,html.dark .el-menu-item.is-active {
+  background-color: var(--el-color-primary) !important;
+  color: #fff !important;
+}
+
+html.light .el-sub-menu.is-active > .el-sub-menu__title,html.dark .el-sub-menu.is-active > .el-sub-menu__title{
+  color: var(--el-color-primary) !important;
+}
+
+html.light .el-menu-item:hover,html.dark .el-menu-item:hover{
+  --el-menu-hover-bg-color: rgba(var(--el-color-primary-rgb), 0.9);
+  color: #fff;
+}
+html.light .el-sub-menu:hover,html.dark .el-sub-menu:hover{
+  --el-menu-hover-bg-color: transparent;
+  
+}
+html.light .el-menu--horizontal .el-menu-item:hover,html.dark .el-menu--horizontal .el-menu-item:hover{
+  --el-menu-hover-bg-color: rgba(var(--el-color-primary-rgb), 0.9);
+  color: #fff;
+}
+
+
+
+
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
   }
-.ma-search-box {
-  
-    border-radius: .25rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-    padding: 1rem;
-    --tw-text-opacity: 1;
-    color: rgb(51 65 85 / var(--tw-text-opacity));
-    text-align: left;
-}
-.ma-table-box {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-    border-radius: .25rem;
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-    padding: 1rem;
-    --tw-text-opacity: 1;
-    color: rgb(51 65 85 / var(--tw-text-opacity));
-}
-.ma-btn-list {
-    margin-bottom: .75rem;
-    display: flex;
-    align-items: center;
-}
-.ma-pagination {
-    display: flex;
-    justify-content: flex-end;
-}
 
-.el-pagination {
-    margin-top: 2rem;
-}
 .el-table .el-table__cell {
     border-right: none !important;
 }

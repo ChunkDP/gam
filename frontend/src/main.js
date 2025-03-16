@@ -21,7 +21,16 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(createPinia())
 app.use(router)
 
-  
+// 初始化主题
+const initTheme = () => {
+  const savedTheme = localStorage.getItem('theme') || 'light'
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark')
+  }
+}
+
+// 在创建应用之前初始化主题
+initTheme()
 
 app.mount('#app')
 

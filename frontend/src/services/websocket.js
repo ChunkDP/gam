@@ -150,6 +150,13 @@ class WebSocketService {
     }
     return Promise.reject(new Error('Max reconnection attempts reached'));
   }
+
+  emit(type, data) {
+    if (this.listeners.has(type)) {
+      const callbacks = this.listeners.get(type);
+      callbacks.forEach(callback => callback(data));
+    }
+  }
 }
 
 export default new WebSocketService(); 

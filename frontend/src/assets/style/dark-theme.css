@@ -1,0 +1,254 @@
+/* 深色主题样式 */
+
+/* 基础变量覆盖 */
+html.dark {
+  --el-bg-color: #1a1a1a;
+  --el-bg-color-overlay: #242424;
+  --el-text-color-primary: #e5eaf3;
+  --el-text-color-regular: #cfd3dc;
+  --el-text-color-secondary: #a3a6ad;
+  --el-border-color-light: #4c4d4f;
+  --el-border-color: #58585b;
+  --el-border-color-darker: #636466;
+  --el-fill-color: #303030;
+  --el-fill-color-light: #262727;
+  --el-fill-color-blank: #1a1a1a;
+  --el-mask-color: rgba(0, 0, 0, 0.8);
+  --el-mask-color-extra-light: rgba(0, 0, 0, 0.3);
+}
+
+/* 布局组件 */
+html.dark .layout {
+  background-color: #1a1a1a;
+}
+
+/* 头部导航栏 */
+html.dark .header {
+  background-color: #252525;
+  border-bottom: 1px solid #3e3e3e;
+  color: #e5eaf3;
+}
+
+html.dark .logo h1 {
+  color: #e5eaf3;
+}
+
+html.dark .user-info span {
+  color: #e5eaf3;
+}
+
+/* 侧边栏 */
+html.dark .sidebar {
+  background-color: #252525;
+  border-right: 1px solid #3e3e3e;
+}
+
+html.dark .collapse-btn {
+  background-color: #252525;
+  color: #a3a6ad;
+  border-top: 1px solid #3e3e3e;
+}
+
+html.dark .collapse-btn:hover {
+  color: #e5eaf3;
+}
+
+/* 标签页导航 */
+html.dark .tabs-bar {
+  background-color: #252525;
+  padding-top:0px;
+}
+
+html.dark .el-tabs__item {
+  color: #a3a6ad !important;
+}
+
+html.dark .el-tabs__item.is-active {
+  color: var(--el-color-primary) !important;
+}
+
+html.dark .el-tabs__nav-wrap::after {
+  background-color: #3e3e3e;
+}
+
+html.dark .el-tabs__active-bar {
+  background-color: var(--el-color-primary);
+}
+
+html.dark .el-tabs__item:hover {
+  color: #e5eaf3 !important;
+}
+
+
+html.dark .el-tabs--card > .el-tabs__header .el-tabs__item {
+  margin-right: 10px;
+  background-color: var(--el-bg-color);
+  border:1px solid var(--el-border-color-darker);
+}
+html.dark .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
+  
+  background-color: var(--el-bg-color-overlay-color);
+  border-color: var(--el-border-color-primary);
+}
+
+/* 恢复标签页导航的下边框 */
+html.dark .el-tabs--card > .el-tabs__header .el-tabs__nav {
+  border: none;
+}
+
+
+
+/* 主内容区域 */
+html.dark .content {
+  background-color: #1a1a1a;
+  color: #e5eaf3;
+}
+
+/* 卡片组件 */
+html.dark .el-card {
+  background-color: #252525;
+  border-color: #3e3e3e;
+  color: #e5eaf3;
+}
+
+html.dark .el-card__header {
+  border-bottom-color: #3e3e3e;
+}
+
+/* 表格组件 */
+html.dark .el-table {
+  background-color: #252525;
+  color: #e5eaf3;
+}
+
+html.dark .el-table tr {
+  background-color: #252525;
+}
+
+html.dark .el-table th.el-table__cell {
+  background-color: #1d1d1d;
+}
+
+html.dark .el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background-color: #1d1d1d;
+}
+
+html.dark .el-table td.el-table__cell, 
+html.dark .el-table th.el-table__cell.is-leaf {
+  border-bottom-color: #3e3e3e;
+}
+
+html.dark .el-table--border .el-table__cell {
+  border-right-color: #3e3e3e;
+}
+
+html.dark .el-table__body tr:hover > td.el-table__cell {
+  background-color: #303030;
+}
+
+/* 分页组件 */
+html.dark .el-pagination {
+  color: #e5eaf3;
+}
+
+html.dark .el-pagination button:disabled {
+  background-color: #252525;
+  color: #606266;
+}
+
+html.dark .el-pager li {
+  background-color: #252525;
+  color: #e5eaf3;
+}
+
+html.dark .el-pager li.is-active {
+  color: var(--el-color-primary);
+}
+
+/* 表单组件 */
+html.dark .el-form-item__label {
+  color: #e5eaf3;
+}
+
+html.dark .el-input__wrapper {
+  background-color: #252525;
+  box-shadow: 0 0 0 1px #3e3e3e inset;
+}
+
+html.dark .el-input__inner {
+  color: #e5eaf3;
+}
+
+html.dark .el-textarea__inner {
+  background-color: #252525;
+  border-color: #3e3e3e;
+  color: #e5eaf3;
+}
+
+/* 按钮 */
+html.dark .el-button--default {
+  background-color: #252525;
+  border-color: #3e3e3e;
+  color: #e5eaf3;
+}
+
+html.dark .el-button--default:hover {
+  background-color: #303030;
+  border-color: var(--el-color-primary);
+  color: var(--el-color-primary);
+}
+
+/* 下拉菜单 */
+html.dark .el-dropdown-menu {
+  background-color: #252525;
+  border-color: #3e3e3e;
+}
+
+html.dark .el-dropdown-menu__item {
+  color: #e5eaf3;
+}
+
+html.dark .el-dropdown-menu__item:hover {
+  background-color: #303030;
+}
+
+/* 对话框 */
+html.dark .el-dialog {
+  background-color: #252525;
+  border-color: #3e3e3e;
+}
+
+html.dark .el-dialog__title {
+  color: #e5eaf3;
+}
+
+html.dark .el-dialog__header {
+  border-bottom-color: #3e3e3e;
+}
+
+html.dark .el-dialog__footer {
+  border-top-color: #3e3e3e;
+}
+
+/* 抽屉 */
+html.dark .el-drawer {
+  background-color: #252525;
+}
+
+html.dark .el-drawer__header {
+  color: #e5eaf3;
+}
+
+/* 右键菜单 */
+html.dark .contextmenu {
+  background-color: #252525;
+  border-color: #3e3e3e;
+}
+
+html.dark .contextmenu li {
+  color: #e5eaf3;
+}
+
+html.dark .contextmenu li:hover {
+  background-color: #303030;
+} 

@@ -145,9 +145,10 @@
 <script setup>
 import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { Bell } from '@element-plus/icons-vue';
+import { Bell, InfoFilled } from '@element-plus/icons-vue';
 import { notificationApi } from '@/services/notification';
 import websocketService from '@/services/websocket';
+
 const getReadStatus = (notification) => {
  
   const readTime = new Date(notification.read_time);
@@ -352,8 +353,12 @@ const handleNewNotification = (data) => {
   fetchNotifications();
 };
 
-// 监听通知撤回
 onMounted(() => {
+  loadNotificationTypes();
+  fetchNotifications();
+  
+  // 只需要监听通知事件，不需要重复建立连接
+  websocketService.on('notification', handleNewNotification);
   websocketService.on('notification-recall', (data) => {
     // 从列表中移除已撤回的通知
     notifications.value = notifications.value.filter(
@@ -366,31 +371,7 @@ onMounted(() => {
       message: data.message,
       duration: 3000
     });
-    
-    // 重新获取未读数量
-    fetchUnreadCount();
   });
-});
-
-onMounted(async () => {
-  loadNotificationTypes();
-  fetchNotifications();
-  
-  // 建立WebSocket连接
-  try {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      await websocketService.connect(token);
-      websocketService.on('notification', handleNewNotification);
-    }
-  } catch (error) {
-    console.error('Failed to connect WebSocket:', error);
-  }
-});
-
-onBeforeUnmount(() => {
-  // 关闭WebSocket连接
-  websocketService.disconnect();
 });
 
 // 获取级别类型

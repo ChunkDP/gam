@@ -13,6 +13,8 @@ GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，�
 - API文档：Swagger
 - 日志：自定义Logger
 - 消息队列：RabbitMQ
+- websocket：Gorilla WebSocket
+- 
 
 ### 前端
 - 核心框架：Vue3 + TypeScript
@@ -20,6 +22,10 @@ GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，�
 - 状态管理：Pinia
 - HTTP客户端：Axios
 - 小程序：uni-app
+### 演示截图
+- 登录页面  ![登录](./docs/images/1.jpg)
+- 首页  ![首页](./docs/images/3.png)
+- 系统日志  ![系统日志](./docs/images/2.png)
 
 ## 项目结构 
 ├── backend/ # 后端项目  
@@ -105,22 +111,15 @@ func RegisterXXXRoutes(r *gin.RouterGroup) {
 #### 响应格式
 ```json
 {
-    "code": 0,           // 状态码，0 表示成功
-    "message": "",       // 提示信息
+    "code": 200,           // 状态码
+    
     "data": {           // 响应数据
-        // 具体数据
+        "data": obj,// 具体数据
+        "error": string // 错误信息
     }
 }
 ```
 
-#### 错误处理
-```json
-{
-    "code": 1,          // 非 0 表示错误
-    "message": "错误信息", // 错误描述
-    "data": null        // 错误时通常为 null
-}
-```
 
 #### 响应工具函数
 ```go
@@ -128,18 +127,9 @@ func RegisterXXXRoutes(r *gin.RouterGroup) {
 
 // 成功响应
 response.Success(c, data)                    // 返回成功数据
-response.SuccessWithMessage(c, "操作成功")     // 返回成功消息
-response.SuccessWithTotal(c, list, total)    // 返回带总数的列表数据
-
 // 错误响应
-response.Error(c, http.StatusBadRequest, "参数错误")  // 返回错误信息
-response.ErrorWithData(c, http.StatusBadRequest, "验证失败", errors) // 返回带数据的错误信息
+response.Error(c, status, "参数错误")  // 返回错误信息
 
-// 特定错误
-response.Unauthorized(c, "未登录或登录已过期")   // 401 未授权
-response.Forbidden(c, "没有操作权限")          // 403 禁止访问
-response.NotFound(c, "资源不存在")            // 404 未找到
-response.ServerError(c, "服务器内部错误")       // 500 服务器错误
 ```
 
 #### 使用示例
@@ -154,23 +144,14 @@ func (h *Handler) GetUser(c *gin.Context) {
     response.Success(c, user)
 }
 
-// 分页查询
-func (h *Handler) ListUsers(c *gin.Context) {
-    users, total, err := h.service.ListUsers(query)
-    if err != nil {
-        response.Error(c, http.StatusBadRequest, "获取用户列表失败")
-        return
-    }
-    response.SuccessWithTotal(c, users, total)
-}
 ```
 
 ### 4. 前端开发规范
 
 #### API 调用
 ```typescript
-// services/api.ts
-import apiService from '@/utils/apiService'
+// services/apiService.js
+import apiService from '@/services/apiService'
 
 export const someAPI = {
     list: (params: any) => apiService.get('/xxx/list', { params }),
@@ -184,7 +165,7 @@ export const someAPI = {
 ```typescript
 // 统一处理响应数据
 const response = await api.someMethod()
-const data = response.data.data  // 获取实际数据
+return response.data.data  // 返回实际数据
 ```
 
 ### 5. 代码规范
