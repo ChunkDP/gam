@@ -165,10 +165,8 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import * as echarts from 'echarts';
-import { User, ShoppingCart, Ticket, Money, ArrowRight } from '@element-plus/icons-vue';
+
 import { systemMonitorApi } from '@/services/systemMonitor';
-import { useNavigationStore } from '@/stores/navigation';
-const navigationStore = useNavigationStore();
 
 
 const router = useRouter();
@@ -221,12 +219,8 @@ const refreshMonitorData = () => {
 // 跳转到监控详情页
 const goToMonitorPage = () => {
   
-  navigationStore.navigateToPage({
-    title: '系统监控',
-    componentName: 'SystemMonitor',
-    parentName: 'System'
-  });
-  
+
+  router.push({name: 'SystemMonitor'});
 };
 
 // 获取进度条颜色

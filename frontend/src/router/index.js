@@ -50,7 +50,7 @@ export async function loadDynamicRoutes() {
     menuData.menus.filter(menu=>menu.component!='').forEach(menu => {
    
         routes.push({
-          path: '/layout'+menu.path,
+          path: menu.path,
           name: menu.name,
           component: () => import(/* @vite-ignore */`../views/${menu.component}.vue`),
           meta: { 
@@ -80,8 +80,7 @@ export async function loadDynamicRoutes() {
 
    
   }
-
-
+ 
 }
 
 router.beforeEach(async (to, from, next) => {

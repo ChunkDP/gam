@@ -29,8 +29,9 @@ export const useUserPermissionsStore = defineStore('userPermissions', {
 
     clearAuth() {
       localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('ParentactiveIndex');
-      localStorage.removeItem('activeIntx');
+      localStorage.removeItem('cachedViews');
+      
+      localStorage.removeItem('activeTab');
       sessionStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('tabs');
@@ -52,9 +53,14 @@ export const useUserPermissionsStore = defineStore('userPermissions', {
           const tree = [];
           const menuMap = new Map();
           response.menus.forEach(item => {
+            item.path = "/layout"+item.path;
             menuMap.set(item.id, { ...item, children: [] });
           });
+         
+
           menuMap.forEach(item => {
+     
+
             if (item.parent_id === 0 || !item.parent_id) {
               // 顶级菜单
               tree.push(item);
@@ -67,10 +73,12 @@ export const useUserPermissionsStore = defineStore('userPermissions', {
             }
           });
 
+          
           this.roleMenu = tree
 
           this.permissions = response.permissions;
 
+        
           return response;
         
       } catch (error) {
