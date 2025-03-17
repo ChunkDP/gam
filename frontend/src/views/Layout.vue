@@ -210,7 +210,7 @@
               :class="{ active: primaryColor === color }"
               @click="selectThemeColor(color)"
             ></div>
-            <el-color-picker v-model="primaryColor" @change="changePrimaryColor"  show-alpha :predefine="presetColors"  class="custom-color-picker" />
+            <el-color-picker v-model="primaryColor" @change="changePrimaryColor"    :predefine="presetColors"  class="custom-color-picker" />
           
           </div>
         </div>
@@ -520,8 +520,9 @@ const selectThemeColor = (color) => {
 
 // 修改主题色
 const changePrimaryColor = (color) => {
+ 
   document.documentElement.style.setProperty('--el-color-primary', color)
-  
+ 
   // 生成不同深浅的主题色
   const colorObj = generateThemeColors(color)
   for (const key in colorObj) {

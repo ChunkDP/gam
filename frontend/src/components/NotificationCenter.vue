@@ -91,7 +91,7 @@ import websocketService from '@/services/websocket';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
-
+import eventBus from '@/utils/eventBus';
 dayjs.extend(relativeTime);
 dayjs.locale('zh-cn');
 
@@ -123,6 +123,7 @@ const loadNotifications = async () => {
 
 // 获取未读通知数量
 const getUnreadCount = async () => {
+
   try {
     const data = await notificationApi.getUnreadNotificationCount();
    
@@ -243,7 +244,9 @@ onMounted(async () => {
   await getUnreadCount();
   // 只需要监听通知事件，不需要重复建立连接
   websocketService.on('notification', handleNewNotification);
+  eventBus.on('notification-read', getUnreadCount);
 });
+
 </script>
 
 <style scoped>

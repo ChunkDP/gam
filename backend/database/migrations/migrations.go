@@ -22,8 +22,10 @@ func registerBaseTables() {
 	})
 }
 
-// registerSystemConfigs 注册系统配置迁移
+// initSuperAdminPermissions 初始化超级管理员权限
+// 该函数通过数据库迁移的方式，为超级管理员角色分配所有菜单权限
 func initSuperAdminPermissions() {
+	// 注册数据库迁移
 	database.RegisterMigration("002_init_super_admin_permissions", func(db *gorm.DB) error {
 		// 获取所有菜单ID
 		var menus []models.Menu

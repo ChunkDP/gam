@@ -148,7 +148,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { Bell, InfoFilled } from '@element-plus/icons-vue';
 import { notificationApi } from '@/services/notification';
 import websocketService from '@/services/websocket';
-
+import eventBus from '@/utils/eventBus';
 const getReadStatus = (notification) => {
  
   const readTime = new Date(notification.read_time);
@@ -289,7 +289,8 @@ const markAsRead = async (row, showMessage = true) => {
     await notificationApi.markNotificationAsRead(row.notification.id);
     row.is_read = true;
     row.read_time = new Date().toISOString();
-    
+    // 触发通知已读事件，通知组件更新未读数量
+    eventBus.emit('notification-read');
     if (showMessage) {
       ElMessage.success('标记为已读成功');
     }
@@ -311,6 +312,8 @@ const markAllAsRead = async () => {
     });
     
     await notificationApi.markAllNotificationsAsRead();
+    // 触发通知已读事件，通知组件更新未读数量
+    eventBus.emit('notification-read');
     ElMessage.success('全部标记为已读成功');
     fetchNotifications();
   } catch (error) {

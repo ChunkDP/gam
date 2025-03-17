@@ -2,7 +2,9 @@
  项目文档
 
 ## 项目简介
-GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。这个项目不仅能帮助你快速搭建一个后台管理系统，为小程序、app提供api支撑，还能帮助你快速了解多个技术栈，学习相关技术原理。为后续程序开发打下基础。  
+GolangAdminManage，简称GAM, 是一个基于 Golang + Vue3 的后台管理系统框架，采用前后端分离架构。这个项目不仅能帮助你快速搭建一个后台管理系统，为小程序、app提供api支撑，还能帮助你快速了解多个技术栈，学习相关技术原理。为后续程序开发提供强大基座后台。  
+开源地址：
+https://gitee.com/zswin/golang-admin-manage
 **本项目涉及多个软件环境，如mysql、redis、rabbitmq，请在调试前安装好相关软件。**
 ## 技术栈
 ### 后端
@@ -24,7 +26,6 @@ GolangAdminManage 是一个基于 Golang + Vue3 的后台管理系统框架，�
 - 小程序：uni-app
 ### 演示截图
 - 登录页面  ![登录](./docs/images/1.jpg)
-- 首页  ![首页](./docs/images/3.png)
 - 系统日志  ![系统日志](./docs/images/2.png)
 
 ## 项目结构 
