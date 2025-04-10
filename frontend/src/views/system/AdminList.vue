@@ -1,7 +1,16 @@
 <template>
-  <div class="admin-list">
+  <div class="ma-search-box">
     <!-- 搜索表单 -->
-    <div class="ma-search-box">
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span>管理员管理</span>
+          <Permission permission="system:user:create">
+          <el-button type="primary" @click="handleAdd">新增管理员</el-button>
+        </Permission>
+      
+        </div>
+      </template>
       <el-form ref="searchForm" :inline="true" :model="searchInfo">
         <el-form-item label="用户名">
           <el-input v-model="searchInfo.username" placeholder="用户名" />
@@ -19,15 +28,11 @@
           <el-button icon="Refresh" @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
-    </div>
+   
 
     <!-- 表格 -->
-    <div class="ma-table-box">
-      <div class="ma-btn-list">
-        <Permission permission="system:user:create">
-          <el-button type="primary" @click="handleAdd">新增管理员</el-button>
-        </Permission>
-      </div>
+    
+       
 
       <el-table :data="tableData" border v-loading="loading">
         <el-table-column prop="id" label="ID" width="80" />
@@ -62,7 +67,7 @@
         </el-table-column>
       </el-table>
 
-      <div class="ma-pagination">
+      <div class="pagination">
         <el-pagination 
           background
           v-model:current-page="pagination.page"
@@ -74,7 +79,7 @@
           @current-change="handleCurrentChange"
         />
       </div>
-    </div>
+    </el-card>
 
     <!-- 添加/编辑对话框 -->
     <el-dialog
@@ -142,9 +147,6 @@ const searchInfo = ref({
 // 表格数据
 const tableData = ref([])
 const loading = ref(false)
-const total = ref(0)
-const currentPage = ref(1)
-const pageSize = ref(10)
 
 // 对话框
 const dialogVisible = ref(false)
@@ -328,18 +330,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.admin-list {
-  padding: 20px;
-}
-.ma-search-box {
-  margin-bottom: 20px;
-}
-.ma-btn-list {
-  margin-bottom: 20px;
-}
-.ma-pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
+
 </style>

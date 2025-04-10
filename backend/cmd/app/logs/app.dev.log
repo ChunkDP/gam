@@ -3341,3 +3341,390 @@
 {"level":"info","time":"2025-03-17T13:09:20.681+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
 {"level":"info","time":"2025-03-17T13:09:23.106+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
 {"level":"info","time":"2025-03-17T13:09:23.109+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:09:18.764+0800","caller":"app/main.go:79","msg":"开始执行数据库迁移"}
+{"level":"info","time":"2025-03-17T18:09:18.765+0800","caller":"database/migration.go:34","msg":"开始执行迁移","total":2}
+{"level":"info","time":"2025-03-17T18:09:18.791+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-17T18:09:18.792+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-17T18:09:18.792+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-17T18:09:18.793+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-17T18:09:18.793+0800","caller":"app/main.go:85","msg":"数据库迁移完成"}
+{"level":"info","time":"2025-03-17T18:09:18.815+0800","caller":"app/main.go:121","msg":"服务器启动","env":"dev","port":8080,"mode":"debug"}
+{"level":"info","time":"2025-03-17T18:09:44.803+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (7ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:09:44.866+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:09:45.037+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:09:45.038+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (4ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:11:08.222+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:11:08.222+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:11:08.227+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:11:51.111+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:11:51.163+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:14:36.973+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:29.482+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:29.559+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:41.921+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:46.587+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:48.905+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:18:48.972+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:19:07.041+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:19:07.093+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:19:35.191+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:19:43.101+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:20:12.792+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:20:16.157+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:20:16.223+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:20:23.111+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:20:23.163+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:22:37.146+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:22:37.211+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:22:45.834+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:22:45.888+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:37:08.301+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:37:22.048+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:37:22.099+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:37:45.104+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:38:38.866+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:38:49.440+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:38:55.343+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:38:55.394+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:41:05.548+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:41:05.550+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:50.691+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:50.691+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:50.694+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (4ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:59.525+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:59.525+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:42:59.528+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:43:25.543+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:43:25.543+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:43:25.545+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:37.732+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:37.910+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:37.910+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:37.912+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:40.323+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:40.465+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:40.465+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:47:40.466+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:48:10.819+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:48:10.853+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:10.854+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:10.858+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:48:14.172+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:48:17.338+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:48:17.370+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:17.371+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:17.374+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:48:18.158+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:48:21.164+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:48:22.159+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:48:25.165+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:48:54.539+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:48:54.651+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:48:54.681+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:54.681+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:48:54.683+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:48:57.759+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:49:00.781+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:49:03.801+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:49:06.824+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:49:09.847+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:50:38.768+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:50:38.800+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:50:38.800+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:50:38.809+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (8ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:50:41.891+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:50:42.908+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:50:43.017+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:50:43.052+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:50:43.052+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:50:43.054+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"error","time":"2025-03-17T18:50:46.124+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:50:49.141+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:50:52.158+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:50:56.159+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"error","time":"2025-03-17T18:51:00.156+0800","caller":"response/response.go:20","msg":"无效的token","file":"D:/project/base/backend/internal/handlers/websocket_handler.go","line":38}
+{"level":"info","time":"2025-03-17T18:51:16.798+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:16.798+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:16.801+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:20.478+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:20.627+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:20.629+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:20.630+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:33.492+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:51:40.350+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:55:55.795+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:55:55.851+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:56:28.748+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:56:36.945+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:56:37.004+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:56:56.296+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:58:27.523+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:58:31.637+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:01.222+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:07.695+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:07.752+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:20.992+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:26.356+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T18:59:26.411+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:02:54.835+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:03:14.157+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:03:22.272+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:03:25.389+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:03:25.453+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:06.158+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:06.225+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:06.365+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:11.632+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:11.661+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:25.546+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/members - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:04:34.501+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:35.161+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:44.670+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/members - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:46.099+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:46.101+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:48.382+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:48.386+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:52.888+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:52.888+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:52.889+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:57.901+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:05:57.914+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:06:00.005+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications/15/publish - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:06:00.010+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:06:00.015+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:01.242+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications/15/recall - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:01.252+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:30.040+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:30.040+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:30.040+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:30.044+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (4ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:32.761+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:32.938+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:32.938+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:32.938+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:10:32.940+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:02.159+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:02.160+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:02.160+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:02.162+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:14.504+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:14.659+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:14.659+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:14.659+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:14.661+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:19.690+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:19.816+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:22.594+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:24.492+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/user/notifications/15/read - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:27.718+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (4ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:28.701+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:28.703+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:34.279+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:34.280+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:34.280+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:40.623+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:40.634+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.243+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications/16/publish - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.252+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.255+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.256+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.258+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (6ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:11:46.260+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:02.511+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:02.511+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:02.511+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:02.512+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:13.013+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:13.013+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:13.014+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:13.015+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:20.952+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:20.952+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:20.952+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:20.953+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:26.439+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:26.599+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:26.600+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:26.600+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:26.601+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:33.463+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:33.465+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:38.049+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:38.177+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:39.364+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:39.563+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:39.563+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:43.457+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:43.457+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:43.457+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:48.206+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:48.218+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:50.797+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/notifications/17/publish - 200 (4ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:50.800+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:13:50.806+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:14:20.340+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:14:21.847+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/user/notifications/17/read - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:14:26.197+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications - 200 (13ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:14:27.049+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/user/notifications/16/read - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:03.766+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/17 - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:03.766+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/17/stats - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:09.472+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/17 - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:09.472+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/17/stats - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:27.207+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:27.218+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/list - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:41.358+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:41.359+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:41.360+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:43.747+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/menus/tree - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:44.703+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:45.876+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:45.876+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:54.216+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:54.335+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:54.335+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:54.335+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:56.174+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:56.810+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/menus/tree - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:57.642+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:57.654+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/list - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:59.073+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications/types - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:59.074+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:32:59.074+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/notifications - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:33:00.345+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:33:03.529+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/logs - 200 (10ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:33:05.059+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:33:05.059+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:33:58.164+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:34:57.679+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/monitor/latest - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:19.203+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:19.203+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:20.855+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:20.970+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:20.971+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:20.970+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:26.516+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/menus/tree - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:27.148+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:35:27.148+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:36:13.561+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:36:13.561+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:37:20.274+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:37:20.418+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:37:20.419+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-17T19:37:20.419+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:09:36.646+0800","caller":"app/main.go:79","msg":"开始执行数据库迁移"}
+{"level":"info","time":"2025-03-21T17:09:36.646+0800","caller":"database/migration.go:34","msg":"开始执行迁移","total":2}
+{"level":"info","time":"2025-03-21T17:09:36.678+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:09:36.678+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:09:36.679+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:09:36.679+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:09:36.679+0800","caller":"app/main.go:85","msg":"数据库迁移完成"}
+{"level":"info","time":"2025-03-21T17:09:36.708+0800","caller":"app/main.go:121","msg":"服务器启动","env":"dev","port":8080,"mode":"debug"}
+{"level":"info","time":"2025-03-21T17:09:56.634+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (9ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:09:56.706+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:09:56.781+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/admins - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:09:56.785+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:25:56.337+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/logs - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:25:57.968+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/menus/tree - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:26:04.118+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/members - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:26:07.528+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/logs - 200 (3ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:42:35.009+0800","caller":"app/main.go:79","msg":"开始执行数据库迁移"}
+{"level":"info","time":"2025-03-21T17:42:35.010+0800","caller":"database/migration.go:34","msg":"开始执行迁移","total":2}
+{"level":"info","time":"2025-03-21T17:42:35.019+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:42:35.020+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:42:35.020+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:42:35.020+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:42:35.020+0800","caller":"app/main.go:85","msg":"数据库迁移完成"}
+{"level":"info","time":"2025-03-21T17:42:35.033+0800","caller":"app/main.go:121","msg":"服务器启动","env":"dev","port":8080,"mode":"debug"}
+{"level":"info","time":"2025-03-21T17:43:14.026+0800","caller":"app/main.go:79","msg":"开始执行数据库迁移"}
+{"level":"info","time":"2025-03-21T17:43:14.026+0800","caller":"database/migration.go:34","msg":"开始执行迁移","total":2}
+{"level":"info","time":"2025-03-21T17:43:14.034+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:43:14.035+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"001_create_base_tables"}
+{"level":"info","time":"2025-03-21T17:43:14.035+0800","caller":"database/migration.go:43","msg":"执行迁移","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:43:14.035+0800","caller":"database/migration.go:51","msg":"迁移完成","name":"002_init_super_admin_permissions"}
+{"level":"info","time":"2025-03-21T17:43:14.035+0800","caller":"app/main.go:85","msg":"数据库迁移完成"}
+{"level":"info","time":"2025-03-21T17:43:14.050+0800","caller":"app/main.go:121","msg":"服务器启动","env":"dev","port":8080,"mode":"debug"}
+{"level":"info","time":"2025-03-21T17:43:24.067+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:24.229+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:24.234+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/system/logs - 200 (5ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:29.341+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:31.063+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles/permissions/1/menus - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:34.751+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] PUT /gam/roles/permissions/1/menus - 200 (52ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:36.329+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:36.446+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:43:36.446+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:44:56.463+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:44:56.581+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:44:56.581+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/roles - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:44:58.685+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:46:21.009+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:46:21.118+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:46:21.118+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:47:02.247+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:47:02.352+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:47:02.352+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:47:18.018+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:49:21.167+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:49:21.279+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:49:21.279+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:50:33.492+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:50:33.503+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:50:33.560+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:50:33.565+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:51:40.708+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:51:40.807+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:51:40.808+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:11.725+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:15.129+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:18.033+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:18.134+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:18.134+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:49.573+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:49.583+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:54.084+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:53:54.092+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:56:47.983+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:56:51.386+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:56:51.504+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:56:51.504+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:58:40.308+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:58:42.750+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:58:42.863+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:58:42.863+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:59:37.965+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/3/test - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T17:59:42.616+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:00:23.811+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:00:23.932+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:00:23.932+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:00:41.274+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:01:44.833+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:01:44.960+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:01:44.960+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:01:47.438+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:02:52.835+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:02:52.957+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:02:52.958+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:02:58.233+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:06:54.404+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:06:59.133+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:01.432+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:01.541+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:01.541+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:05.870+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:41.222+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:41.331+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:07:41.331+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:00.757+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:00.861+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:00.861+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:13.323+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (2ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:13.437+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:13.437+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:08:18.598+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:10:36.299+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:10:36.419+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:10:36.419+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (1ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:10:38.977+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:11:05.194+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/authmenus - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:11:05.311+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/user/notifications/unread-count - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:11:05.312+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] GET /gam/apis - 200 (0ms)","ip":"::1","user_id":1}
+{"level":"info","time":"2025-03-21T18:11:07.528+0800","caller":"middleware/request_logger.go:170","msg":"[INFO] POST /gam/apis/1/test - 200 (0ms)","ip":"::1","user_id":1}

@@ -222,11 +222,11 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
+import { ElMessage } from 'element-plus'
 import '@/assets/style/dark-theme.css' // 引入深色主题样式
 import '@/assets/style/light-theme.css' // 引入浅色主题样式
 import AvatarJpg from '@/assets/avatar.png';
-
+import websocketService from '@/services/websocket';
 import NotificationCenter from '../components/NotificationCenter.vue';
 import { useUserPermissionsStore } from '../stores/userPermissions';
 const userPermissions = useUserPermissionsStore();
@@ -253,15 +253,16 @@ const logout = () => {
 
 
 // 标签页相关
-const activeTab = ref('/layout/home')
-const tabs = ref([
-  { title: '首页', path: '/layout/home',component: "Home"}
-])
-const cachedViews = ref(['Home'])
+const activeTab = ref('')
+const tabs = ref([])
+
+const cachedViews = ref([])
+
+
 
 // 当前激活的菜单
 const activeMenu = computed(() =>{
-  console.log(route.path);
+ 
   return route.path
 } )
 
@@ -406,6 +407,15 @@ const restoreTabs = () => {
       router.push(savedActiveTab)
     }
   }
+
+
+  if(tabs.value.length===0){
+    tabs.value=[
+      { title: '首页', path: '/layout/home',component: "Home"}
+    ]
+    handleMenuSelect('/layout/home')
+  }
+
 }
 // 点击标签
 const clickTab = (tab) => {
@@ -650,6 +660,7 @@ const changeTheme = (val) => {
 
 // 初始化设置
 const initSettings = () => {
+
   // 恢复菜单模式
   const savedMenuMode = localStorage.getItem('menuMode')
   if (savedMenuMode) {
@@ -678,26 +689,56 @@ const initSettings = () => {
 
     // 恢复标签页
     restoreTabs()
+   
 }
 
 // 监听菜单模式变化
 watch(menuMode, (val) => {
   localStorage.setItem('menuMode', val)
 })
+let connectionChecker = null;
 
+const isConnected = ref(false);
+// 检查WebSocket连接状态
+const checkConnection = () => {
+  const token=sessionStorage.getItem('token');
+  if (token && !websocketService.isConnected()) {
+    console.log('WebSocket disconnected, attempting to reconnect...');
+    websocketService.reconnect();
+  }
+};
+
+// 初始化WebSocket连接
+const initWebSocket = async () => {
+  const token=sessionStorage.getItem('token');
+  if (token && !isConnected.value) {
+    try {
+      await websocketService.connect(token);
+      isConnected.value = true;
+      console.log('WebSocket connected successfully');
+    } catch (error) {
+      console.error('Failed to connect WebSocket:', error);
+    }
+  }
+};
 onMounted(() => {
+  console.log('onMounted，layout');
   // 初始化设置
   initSettings()
-  
+  initWebSocket();
   // 添加点击外部关闭右键菜单的事件监听
   document.addEventListener('click', handleClickOutside)
 
-
+  connectionChecker = setInterval(checkConnection, 30000);
 
 })
 
 onUnmounted(() => {
+  console.log('onUnmounted，layout');
   document.removeEventListener('click', handleClickOutside)
+  if (connectionChecker) {
+    clearInterval(connectionChecker);
+  }
 
 })
 </script>

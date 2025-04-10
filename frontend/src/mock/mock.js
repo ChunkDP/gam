@@ -9,7 +9,7 @@ const instance = axios.create();
 const mock = new MockAdapter(instance);
 
 // 模拟获取菜单数据的请求
-mock.onPost('/api/login').reply(200, {token:'token=faewefwfasdfasdfewfwqefwefwfewef',refreshToken :"dsdwewe"});
+mock.onPost('/api/login').reply(200, {token:'token=faketoken',refreshToken :"fakerefreshToken"});
 // 模拟获取菜单数据的请求
 mock.onGet('/api/roleMenu').reply(200, [
  

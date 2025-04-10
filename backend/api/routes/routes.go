@@ -85,7 +85,7 @@ func SetupRoutes(r *gin.Engine, conf *config.Config, mq *rabbitmq.RabbitMQ) {
 		v1.RegisterSystemRoutes(gam)
 		v1.RegisterSystemMonitorRoutes(gam)
 		v1.RegisterNotificationRoutes(gam, mq, notificationHub)
-
+		v1.RegisterAPIRoutes(gam)
 	}
 
 	//前台路由才涉及api/v1的版本控制

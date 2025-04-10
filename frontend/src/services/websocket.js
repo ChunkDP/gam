@@ -14,6 +14,7 @@ class WebSocketService {
   }
 
   connect(token) {
+   
     if (this.isConnected()) {
       return Promise.resolve();
     }

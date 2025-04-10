@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import Login from '../views/Login.vue';
 import Layout from '../views/Layout.vue';
 import Page404 from '../views/404.vue';
-import websocketService from '../services/websocket';
+
 const routes = [
   {
 

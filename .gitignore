@@ -3,5 +3,3 @@ backend/cmd/app/logs/
 .idea/
 .vscode/
 .cursor/
-
-backend/cmd/app/logs/app.dev.log

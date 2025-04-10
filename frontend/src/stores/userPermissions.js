@@ -6,6 +6,7 @@ export const useUserPermissionsStore = defineStore('userPermissions', {
     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
     roleMenu: [],
     permissions: [], // 存储用户的权限列表
+    token: sessionStorage.getItem('token'),
   }),
   getters: {
 
